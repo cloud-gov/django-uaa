@@ -3,9 +3,15 @@
 .. image:: https://travis-ci.org/18F/cg-django-uaa.svg?branch=master
     :target: https://travis-ci.org/18F/cg-django-uaa
 
-This is a cloud.gov UAA authentication backend for Django.
+This is a cloud.gov UAA authentication backend for Django. It also
+includes a handy "fake cloud.gov" that makes it easy to log in
+as any user during development.
 
-.. warning:: At present, the backend only allows users to log in who
+.. warning:: This package is in a very early stage of development
+   and its settings and/or API will likely change in the near future.
+   Use it at your own risk!
+
+   For example, at present, the backend only allows users to log in who
    have existing Django ``User`` models associated with their cloud.gov
    email addresses in the database.
 
@@ -89,3 +95,34 @@ string values, including:
 
 The meaning of other error codes can be discovered by examining the
 ``uaa_client.views`` module.
+
+Using the fake cloud.gov server
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If the ``DEBUG`` setting is ``True``, it is possible to use a fake
+UAA provider for development purposes. This allows developers to
+simply enter any email address and automatically be logged-in as
+that user.
+
+.. image:: https://cloud.githubusercontent.com/assets/124687/16729463/9cd1b676-473a-11e6-98f1-588308c0a213.png
+
+Enabling this functionality requires the following setup.
+
+Firstly, the ``UAA_AUTH_URL`` and ``UAA_TOKEN_URL`` settings
+must both be set to ``'fake:'``.
+
+You'll also need to have ``uaa_client.fake_uaa_provider`` in your
+``INSTALLED_APPS`` setting.
+
+Finally, you will want to add the fake provider's URLconf to your
+project.
+
+.. code-block:: python
+
+   from django.conf.urls import include, url
+
+   urlpatterns = [
+       # Other URL patterns ...
+       url(r'fake/^', include('uaa_client.fake_uaa_provider.urls'))
+       # More URL patterns ...
+   ]

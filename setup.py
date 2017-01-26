@@ -23,7 +23,7 @@ setup(name='cg-django-uaa',
           'httmock>=1.2.5',
       ],
       classifiers=[
-          'Development Status :: 5 - Production/Stable',
+          'Development Status :: 3 - Alpha',
           'Environment :: Web Environment',
           'Framework :: Django',
           'Framework :: Django :: 1.8',
