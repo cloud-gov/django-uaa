@@ -68,6 +68,8 @@ You will want to add the following to your Django project's URLconf.
        # More URL patterns ...
    ]
 
+If you are using Django 1.8, you will need to additionally pass a
+``namespace="uaa_client"`` keyword argument to ``include()``.
 
 Required templates
 ~~~~~~~~~~~~~~~~~~
@@ -126,3 +128,6 @@ project.
        url(r'fake/^', include('uaa_client.fake_uaa_provider.urls'))
        # More URL patterns ...
    ]
+
+If you are using Django 1.8, you will need to additionally pass a
+``namespace="fake_uaa_provider"`` keyword argument to ``include()``.
