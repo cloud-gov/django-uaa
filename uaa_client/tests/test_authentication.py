@@ -1,4 +1,5 @@
 from unittest import mock
+import json
 import urllib.parse
 import jwt
 from django.test import TestCase, RequestFactory
@@ -54,7 +55,8 @@ class FakeAuthenticationTests(TestCase):
             'code': 'boop@gsa.gov',
         })
         self.assertEqual(res.status_code, 200)
-        user_info = jwt.decode(res.json()['access_token'], verify=False)
+        obj = json.loads(res.content.decode('utf-8'))
+        user_info = jwt.decode(obj['access_token'], verify=False)
         self.assertEqual(user_info['email'], 'boop@gsa.gov')
 
 
