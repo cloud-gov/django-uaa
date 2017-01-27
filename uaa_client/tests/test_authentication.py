@@ -9,6 +9,9 @@ import httmock
 from .. import authentication as auth
 
 
+get_user_by_email = auth.UaaBackend.get_user_by_email
+
+
 @override_settings(
     DEBUG=True,
     UAA_CLIENT_ID='clientid',
@@ -111,16 +114,16 @@ class AuthenticationTests(TestCase):
 
     def test_get_user_by_email_returns_existing_user(self):
         user = User.objects.create_user('foo', 'foo@example.org')
-        self.assertEqual(auth.get_user_by_email('foo@example.org'), user)
+        self.assertEqual(get_user_by_email('foo@example.org'), user)
 
     def test_get_user_by_email_is_case_insensitive(self):
         user = User.objects.create_user('foo', 'FOO@example.org')
-        self.assertEqual(auth.get_user_by_email('foo@example.org'), user)
+        self.assertEqual(get_user_by_email('foo@example.org'), user)
         user = User.objects.create_user('bar', 'bar@example.org')
-        self.assertEqual(auth.get_user_by_email('BAR@example.org'), user)
+        self.assertEqual(get_user_by_email('BAR@example.org'), user)
 
     def test_get_user_by_email_returns_none_when_user_does_not_exist(self):
-        self.assertEqual(auth.get_user_by_email('foo@example.org'), None)
+        self.assertEqual(get_user_by_email('foo@example.org'), None)
 
     def test_authenticate_returns_none_when_kwargs_not_passed(self):
         backend = auth.UaaBackend()

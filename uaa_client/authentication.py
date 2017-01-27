@@ -50,13 +50,6 @@ def exchange_code_for_access_token(request, code):
     return response['access_token']
 
 
-def get_user_by_email(email):
-    try:
-        return User.objects.get(email__iexact=email)
-    except User.DoesNotExist:
-        return None
-
-
 class UaaBackend(ModelBackend):
     '''
     Custom auth backend for Cloud Foundry / cloud.gov User Account and
@@ -65,6 +58,21 @@ class UaaBackend(ModelBackend):
     This inherits from ModelBackend so that the superclass can provide
     all authorization methods (e.g. `has_perm()`).
     '''
+
+    @staticmethod
+    def get_user_by_email(email):
+        '''
+        Return a User with the given email address. If no user can be
+        found, return None.
+
+        Note that subclasses may override this method to account for
+        different kinds of security policies for logins.
+        '''
+
+        try:
+            return User.objects.get(email__iexact=email)
+        except User.DoesNotExist:
+            return None
 
     def authenticate(self, uaa_oauth2_code=None, request=None, **kwargs):
         if uaa_oauth2_code is None or request is None:
@@ -76,4 +84,4 @@ class UaaBackend(ModelBackend):
 
         user_info = jwt.decode(access_token, verify=False)
 
-        return get_user_by_email(user_info['email'])
+        return self.get_user_by_email(user_info['email'])
