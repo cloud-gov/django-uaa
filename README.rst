@@ -127,3 +127,11 @@ project.
 
 If you are using Django 1.8, you will need to additionally pass a
 ``namespace="fake_uaa_provider"`` keyword argument to ``include()``.
+
+Note also that the fake server won't work properly if the web
+server hosting your Django project can't handle more than one
+request at a time. This generally shouldn't be a problem, since
+``manage.py runserver`` doesn't have this limitation. If you're using
+gunicorn to serve your app in ``DEBUG`` mode, though, you may want to
+make sure that your ``WEB_CONCURRENCY`` environment variable is
+set to a value greater than 1.
