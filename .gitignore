@@ -5,5 +5,3 @@ venv
 .eggs/
 *.pyc
 __pycache__
-_build
-_build_html
