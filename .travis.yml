@@ -8,10 +8,7 @@ env:
  - DJANGO_VERSION=1.8.17
  - DJANGO_VERSION=1.10.5
 install:
- - pip install coverage>=4.0
- - pip install flake8
+ - pip install -r requirements-dev.txt
  - pip install -q Django==$DJANGO_VERSION
 script:
- - coverage run setup.py test
- - flake8 uaa_client
- - coverage report -m
+ - python setup.py ultratest

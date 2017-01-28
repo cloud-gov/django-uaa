@@ -1,9 +1,37 @@
+import distutils.cmd
 from setuptools import setup, find_packages
+import subprocess
 
 from uaa_client import VERSION
 
 
+class UltraTestCommand(distutils.cmd.Command):
+    description = "Run tests, code coverage, linting, etc."
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        subprocess.check_call(
+            ['coverage', 'run', 'setup.py', 'test']
+        )
+        subprocess.check_call(
+            ['flake8', 'uaa_client']
+        )
+        subprocess.check_call(
+            ['coverage', 'report', '-m']
+        )
+        print("Success!")
+
+
 setup(name='cg-django-uaa',
+      cmdclass={
+          'ultratest': UltraTestCommand,
+      },
       zip_safe=False,
       version=VERSION,
       description='A cloud.gov UAA authentication backend for Django',
