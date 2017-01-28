@@ -78,10 +78,6 @@ All of these are rendered using a ``RequestContext`` and so will also
 receive any additional variables provided by `context processors
 <https://docs.djangoproject.com/en/stable/ref/templates/api/>`_.
 
-**uaa_client/logged_out.html**
-
-Used to show that the user has successfully logged out.
-
 **uaa_client/oauth2_error.html**
 
 Used to show that the user has encountered some sort of OAuth2 error

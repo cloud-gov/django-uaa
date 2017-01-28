@@ -96,9 +96,3 @@ class ViewTests(TestCase):
         with self.login_via_callback(next_url='http://evil.com') as response:
             self.assertEqual(response.status_code, 302)
             self.assertEqual(response['location'], 'http://testserver/boop')
-
-    def test_logout(self):
-        with mock.patch('django.contrib.auth.logout') as logout_mock:
-            response = self.client.get('/auth/logout')
-            self.assertEqual(logout_mock.call_count, 1)
-            self.assertEqual(response.status_code, 200)

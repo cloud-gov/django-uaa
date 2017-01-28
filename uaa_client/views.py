@@ -17,11 +17,6 @@ def login_error(request, error_code):
     })
 
 
-def logout(request):
-    django.contrib.auth.logout(request)
-    return render(request, 'uaa_client/logged_out.html')
-
-
 def login(request):
     redirect_uri = request.build_absolute_uri(reverse('uaa_client:callback'))
     request.session['oauth2_next_url'] = request.GET.get('next', '')
