@@ -3,5 +3,6 @@ venv
 .coverage
 *.egg-info/
 .eggs/
+*.egg
 *.pyc
 __pycache__
