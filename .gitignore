@@ -6,3 +6,5 @@ venv
 *.egg
 *.pyc
 __pycache__
+docs/_build/
+docs/_build_html/
