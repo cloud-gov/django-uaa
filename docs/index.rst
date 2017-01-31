@@ -11,10 +11,13 @@ Welcome to cg-django-uaa's documentation!
    :caption: Contents
 
    quickstart
+   developing
 
 This is a cloud.gov UAA authentication backend for Django. It also
 includes a handy "fake cloud.gov" that makes it easy to log in
 as any user during development.
+
+To get started, see the :ref:`quickstart`.
 
 .. warning:: This package is in a very early stage of development
    and its settings and/or API will likely change in the near future.
