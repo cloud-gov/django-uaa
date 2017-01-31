@@ -54,9 +54,6 @@ setup(name='cg-django-uaa',
       license='Public Domain',
       url='https://github.com/18F/cg-django-uaa',
       package_dir={'uaa_client': 'uaa_client'},
-      package_data={
-        'uaa_client': ['fake_uaa_provider/*/*/*']
-      },
       include_package_data=True,
       packages=find_packages(),
       install_requires=[
