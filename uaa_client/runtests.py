@@ -33,6 +33,9 @@ SETTINGS_DICT = {
             'NAME': os.path.join(APP_DIR, 'db.sqlite3'),
         },
     },
+    'AUTHENTICATION_BACKENDS': [
+        'uaa_client.authentication.UaaBackend',
+    ],
     'MIDDLEWARE_CLASSES': (
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',

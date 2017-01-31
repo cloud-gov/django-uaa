@@ -80,3 +80,14 @@ class ConfigurationTests(SimpleTestCase):
     def test_err_if_prod_urls_are_not_https(self):
         with self.assertRaises(ImproperlyConfigured):
             validate_configuration()
+
+    @override_settings(
+        UAA_CLIENT_ID='foo',
+        UAA_CLIENT_SECRET='bar',
+        UAA_AUTH_URL='https://boop',
+        UAA_TOKEN_URL='https://blap',
+        AUTHENTICATION_BACKENDS=['django.contrib.auth.backends.ModelBackend']
+    )
+    def test_err_if_auth_backends_are_invalid(self):
+        with self.assertRaises(ImproperlyConfigured):
+            validate_configuration()

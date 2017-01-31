@@ -1,5 +1,8 @@
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+from django.contrib import auth
+
+from .authentication import UaaBackend
 
 
 def validate_configuration():
@@ -29,3 +32,14 @@ def validate_configuration():
                 'In production, UAA_AUTH_URL and UAA_TOKEN_URL must '
                 'both use https.'
             )
+
+    uaa_backend_found = False
+    for backend in auth.get_backends():
+        if isinstance(backend, UaaBackend):
+            uaa_backend_found = True
+
+    if not uaa_backend_found:
+        raise ImproperlyConfigured(
+            'settings.AUTHENTICATION_BACKENDS must contain an instance '
+            'of {}'.format(UaaBackend.__name__)
+        )
