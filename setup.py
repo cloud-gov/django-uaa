@@ -5,8 +5,7 @@ import subprocess
 from uaa_client import VERSION
 
 
-class UltraTestCommand(distutils.cmd.Command):
-    description = "Run tests, code coverage, linting, etc."
+class SimpleCommand(distutils.cmd.Command):
     user_options = []
 
     def initialize_options(self):
@@ -14,6 +13,20 @@ class UltraTestCommand(distutils.cmd.Command):
 
     def finalize_options(self):
         pass
+
+
+class DevDocsCommand(SimpleCommand):
+    description = "Run development server for documentation"
+
+    def run(self):
+        subprocess.check_call(
+            ['sphinx-autobuild', '.', '_build_html'],
+            cwd='docs'
+        )
+
+
+class UltraTestCommand(SimpleCommand):
+    description = "Run tests, code coverage, linting, etc."
 
     def run(self):
         subprocess.check_call(
@@ -30,6 +43,7 @@ class UltraTestCommand(distutils.cmd.Command):
 
 setup(name='cg-django-uaa',
       cmdclass={
+          'devdocs': DevDocsCommand,
           'ultratest': UltraTestCommand,
       },
       zip_safe=False,
