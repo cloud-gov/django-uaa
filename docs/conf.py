@@ -47,8 +47,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'cg-django-uaa'
-copyright = '2017, Atul Varma'
-author = 'Atul Varma'
+copyright = '2017, 18F'
+author = '18F'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
