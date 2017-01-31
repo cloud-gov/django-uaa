@@ -3,7 +3,7 @@ Developing cg-django-uaa
 
 .. important::
 
-    This section is about developing *on* cg-django-uaa
+    This section is about developing cg-django-uaa
     itself, not using it in your Django project. For
     details on the latter, see the :ref:`quickstart`.
 
