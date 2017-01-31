@@ -106,7 +106,7 @@ project.
 
    urlpatterns = [
        # Other URL patterns ...
-       url(r'fake/^', include('uaa_client.fake_uaa_provider.urls'))
+       url(r'^fake/', include('uaa_client.fake_uaa_provider.urls'))
        # More URL patterns ...
    ]
 
