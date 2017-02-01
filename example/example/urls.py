@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+import django
 from django.shortcuts import render
 from django.conf.urls import url, include
 from django.contrib import admin
@@ -25,8 +26,13 @@ admin.site.login = user_passes_test(lambda user: user.is_staff)(
 def index(request):
     return render(request, 'index.html')
 
+_kwargs = {}
+
+if django.get_version().startswith('1.8.'):
+    _kwargs['namespace'] = 'uaa_client'
+
 urlpatterns = [
     url(r'^$', index),
     url(r'^admin/', admin.site.urls),
-    url(r'^auth/', include('uaa_client.urls')),
+    url(r'^auth/', include('uaa_client.urls', **_kwargs)),
 ]
