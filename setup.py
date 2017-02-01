@@ -1,3 +1,5 @@
+import os
+import sys
 import distutils.cmd
 from setuptools import setup, find_packages
 import subprocess
@@ -13,6 +15,36 @@ class SimpleCommand(distutils.cmd.Command):
 
     def finalize_options(self):
         pass
+
+
+class ManualTestCommand(SimpleCommand):
+    description = "Run example app in a Docker container for manual testing."
+
+    SDIST_PATH = os.path.join(
+        'dist',
+        'cg_django_uaa-{}-py3-none-any.whl'.format(VERSION)
+    )
+
+    def run(self):
+        if not os.path.exists(self.SDIST_PATH):
+            print("Please run 'python setup.py bdist_wheel' first.")
+            sys.exit(1)
+
+        import django
+
+        django_version = django.get_version()
+        tag_name = 'cg-django-uaa'
+
+        subprocess.check_call(
+            ['docker', 'build',
+             '--build-arg', 'version={}'.format(VERSION),
+             '--build-arg', 'django_version={}'.format(django_version),
+             '-t', tag_name, '.']
+        )
+        subprocess.check_call(
+            ['docker', 'run', '-it', '-p', '8000:8000', '--rm',
+             tag_name]
+        )
 
 
 class DevDocsCommand(SimpleCommand):
@@ -45,6 +77,7 @@ setup(name='cg-django-uaa',
       cmdclass={
           'devdocs': DevDocsCommand,
           'ultratest': UltraTestCommand,
+          'manualtest': ManualTestCommand,
       },
       zip_safe=False,
       version=VERSION,
