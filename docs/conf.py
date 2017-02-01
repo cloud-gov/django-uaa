@@ -38,6 +38,7 @@ django.setup()
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.intersphinx',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -167,5 +168,8 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
-
-
+intersphinx_mapping = {
+    'django': ('https://docs.djangoproject.com/en/1.10/',
+               'https://docs.djangoproject.com/en/1.10/_objects/'),
+    'python': ('https://docs.python.org/3.5', None),
+}

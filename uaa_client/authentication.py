@@ -55,18 +55,22 @@ class UaaBackend(ModelBackend):
     Custom auth backend for Cloud Foundry / cloud.gov User Account and
     Authentication (UAA) servers.
 
-    This inherits from ModelBackend so that the superclass can provide
-    all authorization methods (e.g. `has_perm()`).
+    This inherits from :class:`django.contrib.auth.backends.ModelBackend`
+    so that the superclass can provide all authorization methods.
     '''
 
     @staticmethod
     def get_user_by_email(email):
         '''
-        Return a User with the given email address. If no user can be
-        found, return None.
+        Return a :class:`django.contrib.auth.models.User` with the given
+        email address. If no user can be found, return ``None``.
 
-        Note that subclasses may override this method to account for
-        different kinds of security policies for logins.
+        The default implementation attempts to find an existing user with
+        the given case-insensitive email address. If no such user exists,
+        ``None`` is returned.
+
+        Subclasses may override this method to account for different kinds
+        of security policies for logins.
         '''
 
         try:

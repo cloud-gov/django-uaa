@@ -26,6 +26,16 @@ Begin by adding the following setting to your Django settings file:
 Also make sure you add ``'uaa_client.authentication.UaaBackend'`` to
 your ``AUTHENTICATION_BACKENDS`` setting.
 
+.. important::
+
+    The default authentication backend will only allow users with existing
+    models in your database to log in, which means that you'll probably
+    need to manually create users through Django's admin UI or via
+    ``manage.py createsuperuser``.
+
+    To override this default behavior, you may subclass
+    :class:`uaa_client.authentication.UaaBackend`.
+
 You will likely want to set ``LOGIN_URL`` to ``'uaa_client:login'``, so
 that any views which require login will automatically be redirected
 to cloud.gov-based login.

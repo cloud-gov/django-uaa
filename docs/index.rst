@@ -24,10 +24,6 @@ To get started, see the :ref:`quickstart`.
    and its settings and/or API will likely change in the near future.
    Use it at your own risk!
 
-   For example, at present, the backend only allows users to log in who
-   have existing Django ``User`` models associated with their cloud.gov
-   email addresses in the database.
-
 Indices and tables
 ==================
 
