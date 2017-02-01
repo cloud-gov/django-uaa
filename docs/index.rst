@@ -11,6 +11,7 @@ Welcome to cg-django-uaa's documentation!
    :caption: Contents
 
    quickstart
+   backends
    developing
 
 This is a cloud.gov UAA authentication backend for Django. It also
