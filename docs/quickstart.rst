@@ -1,6 +1,11 @@
 Quick start guide
 =================
 
+Prerequisites
+~~~~~~~~~~~~~
+
+You will need Python 3.4 or above, and Django 1.8 or above.
+
 Required settings
 ~~~~~~~~~~~~~~~~~
 
