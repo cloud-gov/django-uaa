@@ -24,6 +24,9 @@ sys.path.insert(0, os.path.abspath(os.path.join('..', 'example')))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "example.settings")
 
 
+import django
+django.setup()
+
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
