@@ -87,7 +87,7 @@ UAA provider for development purposes. This allows developers to
 simply enter any email address and automatically be logged-in as
 that user.
 
-.. image:: https://cloud.githubusercontent.com/assets/124687/16729463/9cd1b676-473a-11e6-98f1-588308c0a213.png
+.. image:: /_static/fake-cloud-gov.png
 
 Enabling this functionality requires the following setup.
 
