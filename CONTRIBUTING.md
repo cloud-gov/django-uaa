@@ -31,6 +31,9 @@ This project has a command to run all linters and unit tests:
 python setup.py ultratest
 ```
 
+For more information about developing on this project, see the
+[development guide](http://cg-django-uaa.readthedocs.io/en/latest/developing.html).
+
 [PEP8]: https://www.python.org/dev/peps/pep-0008/
 
 ## Pull request guidelines
