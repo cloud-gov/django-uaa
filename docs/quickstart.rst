@@ -63,6 +63,8 @@ If you are using Django 1.8, you will need to additionally pass a
 Required templates
 ~~~~~~~~~~~~~~~~~~
 
+You will also need to create at least one template to use cg-django-uaa.
+
 All of these are rendered using a ``RequestContext`` and so will also
 receive any additional variables provided by `context processors
 <https://docs.djangoproject.com/en/stable/ref/templates/api/>`_.
