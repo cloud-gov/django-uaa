@@ -1,5 +1,3 @@
-.. _quickstart:
-
 Quick start guide
 =================
 
@@ -89,6 +87,8 @@ string values, including:
 
 The other error codes generally refer to mishaps in the OAuth2 protocol
 and can be discovered by examining the ``uaa_client.views`` module.
+
+.. _fakeauth:
 
 Using the fake cloud.gov server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
