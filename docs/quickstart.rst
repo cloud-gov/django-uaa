@@ -69,21 +69,26 @@ All of these are rendered using a ``RequestContext`` and so will also
 receive any additional variables provided by `context processors
 <https://docs.djangoproject.com/en/stable/ref/templates/api/>`_.
 
-**uaa_client/oauth2_error.html**
+**uaa_client/login_error.html**
 
-Used to show that the user has encountered some sort of OAuth2 error
-when trying to authenticate with cloud.gov.  The context contains
+Used to show that the user has encountered some sort of error
+when trying to authenticate with cloud.gov, or when trying to associate
+a cloud.gov user with a Django user.  The context contains
 a single variable, ``error_code``, which can have a variety of
 string values, including:
 
-``'invalid_code_or_nonexistent_user'``
-    Either the OAuth2 code passed back from the cloud.gov's authorize
-    endpoint was invalid, or there exists no ``User`` model with an
-    email address corresponding to the user who just logged in via
-    cloud.gov.
+``'authenticate_failed'``
+    This means that the underlying call to
+    :func:`django.contrib.auth.authenticate` returned ``None`` instead of
+    a user. The actual reasons for the failure depend on the 
+    :class:`uaa_client.authentication.UaaBackend` your project is
+    configured to use; it could mean, for instance, that the OAuth2
+    code passed back from the cloud.gov's authorize endpoint was invalid,
+    or there exists no user model with an email address corresponding
+    to the user who just logged in via cloud.gov.
 
-The meaning of other error codes can be discovered by examining the
-``uaa_client.views`` module.
+The other error codes generally refer to mishaps in the OAuth2 protocol
+and can be discovered by examining the ``uaa_client.views`` module.
 
 Using the fake cloud.gov server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
