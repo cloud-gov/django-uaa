@@ -71,10 +71,10 @@ class ViewTests(TestCase):
         self.assertErrorCode(response, 'missing_code')
 
     @mock.patch('django.contrib.auth.authenticate', return_value=None)
-    def test_callback_reports_invalid_user(self, _):
+    def test_callback_reports_authenticate_failed(self, _):
         self.set_session_kvs(oauth2_state='abcd')
         response = self.client.get('/auth/callback?state=abcd&code=code')
-        self.assertErrorCode(response, 'invalid_code_or_nonexistent_user')
+        self.assertErrorCode(response, 'authenticate_failed')
 
     @contextmanager
     def login_via_callback(self, user='u', next_url=''):

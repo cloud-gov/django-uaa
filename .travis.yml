@@ -1,5 +1,8 @@
 language: python
 sudo: false
+branches:
+  except:
+    - built-docs
 python:
  - "3.6"
  - "3.5"

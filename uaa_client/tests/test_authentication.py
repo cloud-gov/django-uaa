@@ -21,25 +21,28 @@ get_user_by_email = auth.UaaBackend.get_user_by_email
     UAA_TOKEN_URL='fake:'
 )
 class FakeAuthenticationTests(TestCase):
+    AUTH_PATH = '/auth/fake/oauth/authorize'
+    TOKEN_PATH = '/auth/fake/oauth/token'
+
     def test_get_auth_url_works(self):
         req = RequestFactory().get('/')
         self.assertEqual(auth.get_auth_url(req),
-                         'http://testserver/fake/oauth/authorize')
+                         'http://testserver' + self.AUTH_PATH)
 
     def test_get_token_url_works(self):
         req = RequestFactory().get('/')
         self.assertEqual(auth.get_token_url(req),
-                         'http://testserver/fake/oauth/token')
+                         'http://testserver' + self.TOKEN_PATH)
 
     def test_authorize_endpoint_displays_page_without_email(self):
-        res = self.client.get('/fake/oauth/authorize', {
+        res = self.client.get(self.AUTH_PATH, {
             'client_id': 'clientid',
             'response_type': 'code'
         })
         self.assertEqual(res.status_code, 200)
 
     def test_authorize_endpoint_redirects_with_email(self):
-        res = self.client.get('/fake/oauth/authorize', {
+        res = self.client.get(self.AUTH_PATH, {
             'client_id': 'clientid',
             'response_type': 'code',
             'email': 'boop@gsa.gov'
@@ -47,7 +50,7 @@ class FakeAuthenticationTests(TestCase):
         self.assertEqual(res.status_code, 302)
 
     def test_token_endpoint_works(self):
-        res = self.client.post('/fake/oauth/token', {
+        res = self.client.post(self.TOKEN_PATH, {
             'client_id': 'clientid',
             'client_secret': 'clientsecret',
             'grant_type': 'authorization_code',
@@ -58,6 +61,16 @@ class FakeAuthenticationTests(TestCase):
         obj = json.loads(res.content.decode('utf-8'))
         user_info = jwt.decode(obj['access_token'], verify=False)
         self.assertEqual(user_info['email'], 'boop@gsa.gov')
+
+    @override_settings(DEBUG=False)
+    def test_authorize_endpoint_404s_when_debug_is_false(self):
+        res = self.client.get(self.AUTH_PATH)
+        self.assertEqual(res.status_code, 404)
+
+    @override_settings(DEBUG=False)
+    def test_token_endpoint_404s_when_debug_is_false(self):
+        res = self.client.post(self.TOKEN_PATH)
+        self.assertEqual(res.status_code, 404)
 
 
 @override_settings(

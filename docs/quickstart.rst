@@ -1,5 +1,3 @@
-.. _quickstart:
-
 Quick start guide
 =================
 
@@ -26,16 +24,22 @@ Begin by adding the following setting to your Django settings file:
 Also make sure you add ``'uaa_client.authentication.UaaBackend'`` to
 your ``AUTHENTICATION_BACKENDS`` setting.
 
+.. important::
+
+    The default authentication backend will only allow users with existing
+    models in your database to log in, which means that you'll probably
+    need to manually create users through Django's admin UI or via
+    ``manage.py createsuperuser``.
+
+    To override this default behavior, you may subclass
+    :class:`uaa_client.authentication.UaaBackend`.
+
 You will likely want to set ``LOGIN_URL`` to ``'uaa_client:login'``, so
 that any views which require login will automatically be redirected
 to cloud.gov-based login.
 
-You'll also need to have ``django.contrib.auth`` in your
+You'll also need to have ``django.contrib.auth`` and ``uaa_client`` in your
 ``INSTALLED_APPS`` setting.
-
-.. warning:: You should **not** add ``uaa_client`` to your
-   ``INSTALLED_APPS`` setting if you're following this document,
-   as it does not make use of any custom models or other fancy features.
 
 
 Setting up URLs
@@ -63,55 +67,43 @@ All of these are rendered using a ``RequestContext`` and so will also
 receive any additional variables provided by `context processors
 <https://docs.djangoproject.com/en/stable/ref/templates/api/>`_.
 
-**uaa_client/oauth2_error.html**
+**uaa_client/login_error.html**
 
-Used to show that the user has encountered some sort of OAuth2 error
-when trying to authenticate with cloud.gov.  The context contains
+Used to show that the user has encountered some sort of error
+when trying to authenticate with cloud.gov, or when trying to associate
+a cloud.gov user with a Django user.  The context contains
 a single variable, ``error_code``, which can have a variety of
 string values, including:
 
-``'invalid_code_or_nonexistent_user'``
-    Either the OAuth2 code passed back from the cloud.gov's authorize
-    endpoint was invalid, or there exists no ``User`` model with an
-    email address corresponding to the user who just logged in via
-    cloud.gov.
+``'authenticate_failed'``
+    This means that the underlying call to
+    :func:`django.contrib.auth.authenticate` returned ``None`` instead of
+    a user. The actual reasons for the failure depend on the 
+    :class:`uaa_client.authentication.UaaBackend` your project is
+    configured to use; it could mean, for instance, that the OAuth2
+    code passed back from the cloud.gov's authorize endpoint was invalid,
+    or there exists no user model with an email address corresponding
+    to the user who just logged in via cloud.gov.
 
-The meaning of other error codes can be discovered by examining the
-``uaa_client.views`` module.
+The other error codes generally refer to mishaps in the OAuth2 protocol
+and can be discovered by examining the ``uaa_client.views`` module.
+
+.. _fakeauth:
 
 Using the fake cloud.gov server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If the ``DEBUG`` setting is ``True``, it is possible to use a fake
-UAA provider for development purposes. This allows developers to
-simply enter any email address and automatically be logged-in as
-that user.
+It is possible to use a fake UAA provider for development purposes.
+This allows developers to simply enter any email address and
+automatically be logged-in as that user.
 
-.. image:: https://cloud.githubusercontent.com/assets/124687/16729463/9cd1b676-473a-11e6-98f1-588308c0a213.png
+.. image:: /_static/fake-cloud-gov.png
 
-Enabling this functionality requires the following setup.
+To enable this functionality, set the ``UAA_AUTH_URL`` and
+``UAA_TOKEN_URL`` settings to ``'fake:'``.
 
-Firstly, the ``UAA_AUTH_URL`` and ``UAA_TOKEN_URL`` settings
-must both be set to ``'fake:'``.
-
-You'll also need to have ``uaa_client.fake_uaa_provider`` in your
-``INSTALLED_APPS`` setting.
-
-Finally, you will want to add the fake provider's URLconf to your
-project.
-
-.. code-block:: python
-
-   from django.conf.urls import include, url
-
-   urlpatterns = [
-       # Other URL patterns ...
-       url(r'^fake/', include('uaa_client.fake_uaa_provider.urls'))
-       # More URL patterns ...
-   ]
-
-If you are using Django 1.8, you will need to additionally pass a
-``namespace="fake_uaa_provider"`` keyword argument to ``include()``.
+As this feature would clearly be a security hazard if used in
+production, it is *only* available when ``DEBUG`` is ``True``.
 
 Note also that the fake server won't work properly if the web
 server hosting your Django project can't handle more than one

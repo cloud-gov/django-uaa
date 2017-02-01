@@ -18,9 +18,14 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import sys
 
+sys.path.insert(0, os.path.abspath(os.path.join('..', 'example')))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "example.settings")
+
+
+import django
+django.setup()
 
 # -- General configuration ------------------------------------------------
 
@@ -31,7 +36,10 @@ import os
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = []
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.intersphinx',
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -47,8 +55,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'cg-django-uaa'
-copyright = '2017, Atul Varma'
-author = 'Atul Varma'
+copyright = '2017, 18F'
+author = '18F'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -160,5 +168,8 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
-
-
+intersphinx_mapping = {
+    'django': ('https://docs.djangoproject.com/en/1.10/',
+               'https://docs.djangoproject.com/en/1.10/_objects/'),
+    'python': ('https://docs.python.org/3.5', None),
+}

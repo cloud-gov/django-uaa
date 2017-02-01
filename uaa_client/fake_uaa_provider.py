@@ -26,7 +26,7 @@ def authorize(request):
     email = request.GET.get('email')
 
     if not email:
-        return render(request, 'fake_uaa_provider/index.html', {
+        return render(request, 'uaa_client/fake_uaa_provider/index.html', {
             'query': request.GET
         })
 

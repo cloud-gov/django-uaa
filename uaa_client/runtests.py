@@ -23,7 +23,7 @@ SETTINGS_DICT = {
         'django.contrib.auth',
         'django.contrib.contenttypes',
         'django.contrib.sessions',
-        'uaa_client.fake_uaa_provider',
+        'uaa_client',
     ),
     # Test cases will override this liberally.
     'ROOT_URLCONF': 'uaa_client.tests.urls',
@@ -33,6 +33,9 @@ SETTINGS_DICT = {
             'NAME': os.path.join(APP_DIR, 'db.sqlite3'),
         },
     },
+    'AUTHENTICATION_BACKENDS': [
+        'uaa_client.authentication.UaaBackend',
+    ],
     'MIDDLEWARE_CLASSES': (
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',

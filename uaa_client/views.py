@@ -12,7 +12,7 @@ from .authentication import get_auth_url
 
 
 def login_error(request, error_code):
-    return render(request, 'uaa_client/oauth2_error.html', {
+    return render(request, 'uaa_client/login_error.html', {
         'error_code': error_code
     })
 
@@ -52,7 +52,7 @@ def oauth2_callback(request):
                                             request=request)
 
     if user is None:
-        return login_error(request, 'invalid_code_or_nonexistent_user')
+        return login_error(request, 'authenticate_failed')
 
     del request.session['oauth2_state']
 
