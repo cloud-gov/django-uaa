@@ -1,0 +1,265 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Developing cg-django-uaa &mdash; cg-django-uaa 0.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="cg-django-uaa 0.0.1 documentation" href="index.html"/>
+        <link rel="prev" title="Authentication backends" href="backends.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> cg-django-uaa
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick start guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backends.html">Authentication backends</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Developing cg-django-uaa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-example-app">Using the example app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-tests">Running tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#writing-documentation">Writing documentation</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">cg-django-uaa</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Developing cg-django-uaa</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/developing.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="developing-cg-django-uaa">
+<h1>Developing cg-django-uaa<a class="headerlink" href="#developing-cg-django-uaa" title="Permalink to this headline">¶</a></h1>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">This section is about developing cg-django-uaa
+itself, not using it in your Django project. For
+details on the latter, see the <a class="reference internal" href="quickstart.html"><span class="doc">Quick start guide</span></a>.</p>
+</div>
+<p>First, clone the git repository:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>git clone https://github.com/18F/cg-django-uaa
+</pre></div>
+</div>
+<p>Then create a virtualenv for the project and install
+development dependencies:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>virtualenv -p python3 venv
+source venv/bin/activate
+pip install -r requirements-dev.txt
+</pre></div>
+</div>
+<p>Then install cg-django-uaa in development mode:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>python setup.py develop
+</pre></div>
+</div>
+<div class="section" id="using-the-example-app">
+<h2>Using the example app<a class="headerlink" href="#using-the-example-app" title="Permalink to this headline">¶</a></h2>
+<p>An example Django project provides a trivial integration with
+cg-django-uaa and can be used to manually ensure that everything
+works as expected.</p>
+<p>To use it, run the following from the root of the repository:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>cd example
+python manage.py migrate
+python manage.py createsuperuser --username foo --email foo@example.org
+python manage.py runserver
+</pre></div>
+</div>
+<p>At this point you should be able to visit the locally-hosted project
+and login to fake cloud.gov as <a class="reference external" href="mailto:foo&#37;&#52;&#48;example&#46;org">foo<span>&#64;</span>example<span>&#46;</span>org</a>.</p>
+</div>
+<div class="section" id="running-tests">
+<h2>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
+<p>You can run all the tests with code coverage
+and linting:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>python setup.py ultratest
+</pre></div>
+</div>
+<p>Note that this command will fail if any tests do not pass, if
+there are any linting warnings, or if code coverage is not at
+100%.</p>
+</div>
+<div class="section" id="writing-documentation">
+<h2>Writing documentation<a class="headerlink" href="#writing-documentation" title="Permalink to this headline">¶</a></h2>
+<p>If you want to work on documentation, you can run the development
+documentation server with:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>python setup.py devdocs
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="backends.html" class="btn btn-neutral" title="Authentication backends" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, 18F.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
