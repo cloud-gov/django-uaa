@@ -29,5 +29,4 @@ urlpatterns = [
     url(r'^$', index),
     url(r'^admin/', admin.site.urls),
     url(r'^auth/', include('uaa_client.urls')),
-    url(r'^fake/', include('uaa_client.fake_uaa_provider.urls')),
 ]

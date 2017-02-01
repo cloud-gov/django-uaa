@@ -11,13 +11,13 @@ logger = logging.getLogger('uaa_client')
 
 def get_auth_url(request):
     if settings.DEBUG and settings.UAA_AUTH_URL == 'fake:':
-        return request.build_absolute_uri(reverse('fake_uaa_provider:auth'))
+        return request.build_absolute_uri(reverse('uaa_client:fake_auth'))
     return settings.UAA_AUTH_URL
 
 
 def get_token_url(request):
     if settings.DEBUG and settings.UAA_TOKEN_URL == 'fake:':
-        return request.build_absolute_uri(reverse('fake_uaa_provider:token'))
+        return request.build_absolute_uri(reverse('uaa_client:fake_token'))
     return settings.UAA_TOKEN_URL
 
 

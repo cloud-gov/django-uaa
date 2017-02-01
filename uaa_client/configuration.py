@@ -1,6 +1,8 @@
+import functools
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.contrib import auth
+from django.http import HttpResponseNotFound
 
 from .authentication import UaaBackend
 
@@ -43,3 +45,19 @@ def validate_configuration():
             'settings.AUTHENTICATION_BACKENDS must contain an instance '
             'of {}'.format(UaaBackend.__name__)
         )
+
+
+def require_debug(func):
+    '''
+    Decorator that wraps a Django view so it's only enabled when
+    settings.DEBUG is True.  If settings.DEBUG is False, the view will
+    always return a 404.
+    '''
+
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        if not settings.DEBUG:
+            return HttpResponseNotFound()
+        return func(*args, **kwargs)
+
+    return wrapper

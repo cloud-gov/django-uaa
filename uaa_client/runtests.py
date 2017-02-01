@@ -23,7 +23,7 @@ SETTINGS_DICT = {
         'django.contrib.auth',
         'django.contrib.contenttypes',
         'django.contrib.sessions',
-        'uaa_client.fake_uaa_provider',
+        'uaa_client',
     ),
     # Test cases will override this liberally.
     'ROOT_URLCONF': 'uaa_client.tests.urls',

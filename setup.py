@@ -55,7 +55,7 @@ setup(name='cg-django-uaa',
       url='https://github.com/18F/cg-django-uaa',
       package_dir={'uaa_client': 'uaa_client'},
       package_data={
-        'uaa_client': ['fake_uaa_provider/*/*/*']
+        'uaa_client': ['*/*/*']
       },
       include_package_data=True,
       packages=find_packages(),

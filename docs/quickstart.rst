@@ -40,12 +40,8 @@ You will likely want to set ``LOGIN_URL`` to ``'uaa_client:login'``, so
 that any views which require login will automatically be redirected
 to cloud.gov-based login.
 
-You'll also need to have ``django.contrib.auth`` in your
+You'll also need to have ``django.contrib.auth`` and ``uaa_client`` in your
 ``INSTALLED_APPS`` setting.
-
-.. warning:: You should **not** add ``uaa_client`` to your
-   ``INSTALLED_APPS`` setting if you're following this document,
-   as it does not make use of any custom models or other fancy features.
 
 
 Setting up URLs
@@ -92,36 +88,17 @@ The meaning of other error codes can be discovered by examining the
 Using the fake cloud.gov server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If the ``DEBUG`` setting is ``True``, it is possible to use a fake
-UAA provider for development purposes. This allows developers to
-simply enter any email address and automatically be logged-in as
-that user.
+It is possible to use a fake UAA provider for development purposes.
+This allows developers to simply enter any email address and
+automatically be logged-in as that user.
 
 .. image:: /_static/fake-cloud-gov.png
 
-Enabling this functionality requires the following setup.
+To enable this functionality, set the ``UAA_AUTH_URL`` and
+``UAA_TOKEN_URL`` settings to ``'fake:'``.
 
-Firstly, the ``UAA_AUTH_URL`` and ``UAA_TOKEN_URL`` settings
-must both be set to ``'fake:'``.
-
-You'll also need to have ``uaa_client.fake_uaa_provider`` in your
-``INSTALLED_APPS`` setting.
-
-Finally, you will want to add the fake provider's URLconf to your
-project.
-
-.. code-block:: python
-
-   from django.conf.urls import include, url
-
-   urlpatterns = [
-       # Other URL patterns ...
-       url(r'^fake/', include('uaa_client.fake_uaa_provider.urls'))
-       # More URL patterns ...
-   ]
-
-If you are using Django 1.8, you will need to additionally pass a
-``namespace="fake_uaa_provider"`` keyword argument to ``include()``.
+As this feature would clearly be a security hazard if used in
+production, it is *only* available when ``DEBUG`` is ``True``.
 
 Note also that the fake server won't work properly if the web
 server hosting your Django project can't handle more than one
