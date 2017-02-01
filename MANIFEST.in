@@ -1,0 +1,6 @@
+include README.rst
+include LICENSE.md
+recursive-include docs *
+recursive-include uaa_client/tests/templates *
+recursive-include uaa_client/static *
+recursive-include uaa_client/templates *
