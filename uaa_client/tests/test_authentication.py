@@ -87,7 +87,7 @@ class AuthenticationTests(TestCase):
     def test_get_token_url_works(self):
         self.assertEqual(auth.get_token_url(None), 'https://example.org/token')
 
-    @mock.patch('uaa_client.authentication.logger.warn')
+    @mock.patch('uaa_client.authentication.logger.warning')
     def test_exchange_code_for_access_token_returns_none_on_failure(self, m):
         def mock_404_response(url, request):
             return httmock.response(404, "nope")

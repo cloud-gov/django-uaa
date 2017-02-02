@@ -36,12 +36,12 @@ def exchange_code_for_access_token(request, code):
     token_url = get_token_url(request)
     token_req = requests.post(token_url, data=payload)
     if token_req.status_code != 200:
-        logger.warn('POST %s returned %s '
-                    'w/ content %s' % (
-                        token_url,
-                        token_req.status_code,
-                        repr(token_req.content)
-                    ))
+        logger.warning('POST %s returned %s '
+                       'w/ content %s' % (
+                           token_url,
+                           token_req.status_code,
+                           repr(token_req.content)
+                       ))
         return None
 
     response = token_req.json()
