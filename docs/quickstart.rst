@@ -6,6 +6,13 @@ Prerequisites
 
 You will need Python 3.4 or above, and Django 1.8 or above.
 
+Installation
+~~~~~~~~~~~~
+
+To install cg-django-uaa, run::
+
+    pip install cg-django-uaa
+
 Required settings
 ~~~~~~~~~~~~~~~~~
 
