@@ -35,7 +35,7 @@ To use it, run the following from the root of the repository::
 
     cd example
     python manage.py migrate
-    python manage.py createsuperuser --username foo --email foo@example.org
+    python manage.py createsuperuser --username foo --email foo@example.org --noinput
     python manage.py runserver
 
 At this point you should be able to visit the locally-hosted project
