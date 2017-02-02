@@ -20,10 +20,6 @@ that makes it easy to log in as any user during development.
 
 To get started, see the :doc:`quickstart`.
 
-.. warning:: This package is in a very early stage of development
-   and its settings and/or API will likely change in the near future.
-   Use it at your own risk!
-
 Indices and tables
 ==================
 
