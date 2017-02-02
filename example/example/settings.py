@@ -128,3 +128,20 @@ UAA_CLIENT_ID = 'my_fake_client_id'
 UAA_CLIENT_SECRET = 'my_fake_client_secret'
 
 UAA_AUTH_URL = UAA_TOKEN_URL = 'fake:'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'uaa_client': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        }
+    }
+}
