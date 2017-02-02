@@ -137,8 +137,17 @@ class AuthenticationTests(TestCase):
         user = User.objects.create_user('bar', 'bar@example.org')
         self.assertEqual(get_user_by_email('BAR@example.org'), user)
 
-    def test_get_user_by_email_returns_none_when_user_does_not_exist(self):
+    @mock.patch('uaa_client.authentication.logger.info')
+    def test_get_user_by_email_returns_none_when_user_does_not_exist(self, m):
         self.assertEqual(get_user_by_email('foo@example.org'), None)
+        m.assert_called_with('User with email foo@example.org does not exist')
+
+    @mock.patch('uaa_client.authentication.logger.warning')
+    def test_get_user_by_email_returns_none_when_many_users_exist(self, m):
+        User.objects.create_user('foo1', 'foo@example.org')
+        User.objects.create_user('foo2', 'foo@example.org')
+        self.assertEqual(get_user_by_email('foo@example.org'), None)
+        m.assert_called_with('Multiple users with email foo@example.org exist')
 
     def test_authenticate_returns_none_when_kwargs_not_passed(self):
         backend = auth.UaaBackend()

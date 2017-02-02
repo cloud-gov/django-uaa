@@ -1,6 +1,7 @@
 import logging
 import requests
 import jwt
+from django.core.exceptions import MultipleObjectsReturned
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.backends import ModelBackend
@@ -76,6 +77,14 @@ class UaaBackend(ModelBackend):
         try:
             return User.objects.get(email__iexact=email)
         except User.DoesNotExist:
+            logger.info(
+                'User with email {} does not exist'.format(email)
+            )
+            return None
+        except MultipleObjectsReturned:
+            logger.warning(
+                'Multiple users with email {} exist'.format(email)
+            )
             return None
 
     def authenticate(self, uaa_oauth2_code=None, request=None, **kwargs):
