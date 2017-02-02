@@ -46,7 +46,6 @@ to cloud.gov-based login.
 You'll also need to have ``django.contrib.auth`` and ``uaa_client`` in your
 ``INSTALLED_APPS`` setting.
 
-
 Setting up URLs
 ~~~~~~~~~~~~~~~
 
@@ -91,6 +90,13 @@ string values, including:
     code passed back from the cloud.gov's authorize endpoint was invalid,
     or there exists no user model with an email address corresponding
     to the user who just logged in via cloud.gov.
+
+    You may learn more about why authentication failed by enabling
+    logging output for the ``uaa_client`` logger at the ``INFO`` level. While
+    configuring logging is outside of the scope of this guide, you may
+    refer to the `example project's settings
+    <https://github.com/18F/cg-django-uaa/blob/master/example/example/settings.py>`_
+    for an example.
 
 The other error codes generally refer to mishaps in the OAuth2 protocol
 and can be discovered by examining the ``uaa_client.views`` module.
