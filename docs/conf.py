@@ -62,8 +62,16 @@ author = '18F'
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
-# The short X.Y version.
-version = '0.0.2rc0'
+
+with open(os.path.join('..', 'uaa_client', '__init__.py')) as f:
+    _globs = {}
+    exec(f.read(), _globs)
+
+    # The short X.Y version.
+    version = _globs['VERSION']
+
+    del _globs
+
 # The full version, including alpha/beta/rc tags.
 release = version
 
