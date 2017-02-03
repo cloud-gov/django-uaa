@@ -96,9 +96,8 @@ setup(name='cg-django-uaa',
           'requests>=2.11.0'
       ],
       test_suite='uaa_client.runtests.run_tests',
-      tests_require=[
-          'httmock>=1.2.5',
-      ],
+      tests_require=open('requirements-tests.txt', 'r').read().\
+        strip().split('\n'),
       classifiers=[
           'Development Status :: 3 - Alpha',
           'Environment :: Web Environment',

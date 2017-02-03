@@ -12,11 +12,16 @@ ARG django_version
 
 RUN pip install django==${django_version}
 
+COPY requirements-tests.txt /
+
+RUN pip install -r /requirements-tests.txt
+
 COPY dist/cg_django_uaa-${version}-py3-none-any.whl /
 
 WORKDIR /
 
-RUN pip install cg_django_uaa-${version}-py3-none-any.whl
+RUN pip install cg_django_uaa-${version}-py3-none-any.whl && \
+  python -m uaa_client.runtests
 
 COPY example /example
 
