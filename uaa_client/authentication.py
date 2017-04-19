@@ -1,4 +1,5 @@
 import logging
+import time
 import requests
 import jwt
 from django.core.exceptions import MultipleObjectsReturned
@@ -22,18 +23,7 @@ def get_token_url(request):
     return settings.UAA_TOKEN_URL
 
 
-def exchange_code_for_access_token(request, code):
-    redirect_uri = request.build_absolute_uri(reverse('uaa_client:callback'))
-
-    payload = {
-        'grant_type': 'authorization_code',
-        'code': code,
-        'redirect_uri': redirect_uri,
-        'response_type': 'token',
-        'client_id': settings.UAA_CLIENT_ID,
-        'client_secret': settings.UAA_CLIENT_SECRET
-    }
-
+def obtain_access_token(request, payload):
     token_url = get_token_url(request)
     token_req = requests.post(token_url, data=payload)
     if token_req.status_code != 200:
@@ -46,9 +36,32 @@ def exchange_code_for_access_token(request, code):
         return None
 
     response = token_req.json()
-    request.session.set_expiry(response['expires_in'])
+    request.session['uaa_expiry'] = int(time.time()) + response['expires_in']
+    request.session['uaa_refresh_token'] = response['refresh_token']
 
     return response['access_token']
+
+
+def update_access_token_with_refesh_token(request):
+    return obtain_access_token(request, {
+        'grant_type': 'refresh_token',
+        'refresh_token': request.session['uaa_refresh_token'],
+        'client_id': settings.UAA_CLIENT_ID,
+        'client_secret': settings.UAA_CLIENT_SECRET
+    })
+
+
+def exchange_code_for_access_token(request, code):
+    redirect_uri = request.build_absolute_uri(reverse('uaa_client:callback'))
+
+    return obtain_access_token(request, {
+        'grant_type': 'authorization_code',
+        'code': code,
+        'redirect_uri': redirect_uri,
+        'response_type': 'token',
+        'client_id': settings.UAA_CLIENT_ID,
+        'client_secret': settings.UAA_CLIENT_SECRET
+    })
 
 
 class UaaBackend(ModelBackend):

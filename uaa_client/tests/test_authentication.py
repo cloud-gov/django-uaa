@@ -99,7 +99,11 @@ class AuthenticationTests(TestCase):
         m.assert_called_with('POST https://example.org/token returned 404 '
                              'w/ content b\'nope\'')
 
-    def test_exchange_code_for_access_token_returns_token_on_success(self):
+    @mock.patch('time.time', return_value=100)
+    def test_exchange_code_for_access_token_returns_token_on_success(
+        self,
+        mock_time
+    ):
         def mock_200_response(url, request):
             self.assertEqual(request.url, 'https://example.org/token')
             body = dict(urllib.parse.parse_qsl(request.body))
@@ -113,6 +117,7 @@ class AuthenticationTests(TestCase):
             })
             return httmock.response(200, {
                 'access_token': 'lol',
+                'refresh_token': 'boop',
                 'expires_in': 15
             }, {
                 'content-type': 'application/json'
@@ -120,12 +125,17 @@ class AuthenticationTests(TestCase):
 
         req = mock.MagicMock()
         req.build_absolute_uri.return_value = 'https://redirect_uri'
+        session = {}
+        req.session.__setitem__.side_effect = session.__setitem__
 
         with httmock.HTTMock(mock_200_response):
             self.assertEqual(auth.exchange_code_for_access_token(req, 'foo'),
                              'lol')
 
-        req.session.set_expiry.assert_called_with(15)
+        self.assertEqual(session, {
+            'uaa_expiry': 115,
+            'uaa_refresh_token': 'boop'
+        })
 
     def test_get_user_by_email_returns_existing_user(self):
         user = User.objects.create_user('foo', 'foo@example.org')
