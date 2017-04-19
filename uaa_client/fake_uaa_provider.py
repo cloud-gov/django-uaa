@@ -7,7 +7,8 @@ from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST, require_GET
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import (HttpResponse, HttpResponseBadRequest,
+                         HttpResponseRedirect)
 
 
 TOKEN_EXPIRATION = timedelta(seconds=60)
@@ -59,7 +60,7 @@ def access_token(request):
         preamble, email = request.POST['refresh_token'].split(':')
         expect(preamble, 'fake_oauth2_refresh_token')
     else:
-        raise Exception("Invalid grant_type: %s" % grant_type)
+        return HttpResponseBadRequest("Invalid grant_type: %s" % grant_type)
 
     expect(request.POST.get('client_id'), client_id)
     expect(request.POST.get('client_secret'), settings.UAA_CLIENT_SECRET)

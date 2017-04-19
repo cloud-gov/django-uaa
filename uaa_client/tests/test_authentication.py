@@ -49,6 +49,24 @@ class FakeAuthenticationTests(TestCase):
         })
         self.assertEqual(res.status_code, 302)
 
+    def test_token_endpoint_returns_400_on_invalid_grant_type(self):
+        res = self.client.post(self.TOKEN_PATH, {
+            'grant_type': 'zzz',
+        })
+        self.assertEqual(res.status_code, 400)
+
+    def test_token_endpoint_supports_refresh(self):
+        res = self.client.post(self.TOKEN_PATH, {
+            'client_id': 'clientid',
+            'client_secret': 'clientsecret',
+            'grant_type': 'refresh_token',
+            'refresh_token': 'fake_oauth2_refresh_token:bap@gsa.gov'
+        })
+        self.assertEqual(res.status_code, 200)
+        obj = json.loads(res.content.decode('utf-8'))
+        user_info = jwt.decode(obj['access_token'], verify=False)
+        self.assertEqual(user_info['email'], 'bap@gsa.gov')
+
     def test_token_endpoint_works(self):
         res = self.client.post(self.TOKEN_PATH, {
             'client_id': 'clientid',
@@ -86,6 +104,18 @@ class AuthenticationTests(TestCase):
 
     def test_get_token_url_works(self):
         self.assertEqual(auth.get_token_url(None), 'https://example.org/token')
+
+    @mock.patch('uaa_client.authentication.logger.warning')
+    def test_update_access_token_returns_none_on_failure(self, m):
+        def mock_404_response(url, request):
+            return httmock.response(404, "nope")
+
+        req = mock.MagicMock()
+        with httmock.HTTMock(mock_404_response):
+            self.assertEqual(auth.update_access_token_with_refesh_token(req),
+                             None)
+        m.assert_called_with('POST https://example.org/token returned 404 '
+                             'w/ content b\'nope\'')
 
     @mock.patch('uaa_client.authentication.logger.warning')
     def test_exchange_code_for_access_token_returns_none_on_failure(self, m):
