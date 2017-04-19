@@ -61,15 +61,19 @@ class UltraTestCommand(SimpleCommand):
     description = "Run tests, code coverage, linting, etc."
 
     def run(self):
+        print("Running tests...")
         subprocess.check_call(
             ['coverage', 'run', 'setup.py', 'test']
         )
+        print("Running mypy...")
         subprocess.check_call(
             [sys.executable, '-m', 'mypy', 'uaa_client']
         )
+        print("Running flake8...")
         subprocess.check_call(
             ['flake8', 'uaa_client']
         )
+        print("Ensuring code coverage is at 100%...")
         subprocess.check_call(
             ['coverage', 'report', '-m']
         )
