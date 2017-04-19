@@ -14,11 +14,12 @@ logger = logging.getLogger('uaa_client')
 
 
 class UaaRefreshMiddleware(MiddlewareMixin):
-    def process_request(self, request):
+    def process_view(self, request, view_func, view_args, view_kwargs):
         should_refresh = (
             request.user.is_authenticated() and
             'uaa_expiry' in request.session and
-            time.time() > request.session['uaa_expiry']
+            time.time() > request.session['uaa_expiry'] and
+            not getattr(view_func, 'uaa_refresh_exempt', False)
         )
 
         if should_refresh:
