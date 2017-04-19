@@ -31,5 +31,5 @@ class UaaRefreshMiddleware(MiddlewareMixin):
                 logout(request)
             else:
                 logger.info(
-                    'Refreshing token for {} succeded.'.format(username)
+                    'Refreshing token for {} succeeded.'.format(username)
                 )
