@@ -42,7 +42,7 @@ def obtain_access_token(request, payload):
     return response['access_token']
 
 
-def update_access_token_with_refesh_token(request):
+def update_access_token_with_refresh_token(request):
     return obtain_access_token(request, {
         'grant_type': 'refresh_token',
         'refresh_token': request.session['uaa_refresh_token'],

@@ -112,10 +112,47 @@ class AuthenticationTests(TestCase):
 
         req = mock.MagicMock()
         with httmock.HTTMock(mock_404_response):
-            self.assertEqual(auth.update_access_token_with_refesh_token(req),
+            self.assertEqual(auth.update_access_token_with_refresh_token(req),
                              None)
         m.assert_called_with('POST https://example.org/token returned 404 '
                              'w/ content b\'nope\'')
+
+    @mock.patch('time.time', return_value=100)
+    def test_update_access_token_returns_token_on_success(
+        self,
+        mock_time
+    ):
+        def mock_200_response(url, request):
+            self.assertEqual(request.url, 'https://example.org/token')
+            body = dict(urllib.parse.parse_qsl(request.body))
+            self.assertEqual(body, {
+                'client_id': 'clientid',
+                'client_secret': 'clientsecret',
+                'grant_type': 'refresh_token',
+                'refresh_token': 'boop',
+            })
+            return httmock.response(200, {
+                'access_token': 'lol',
+                'refresh_token': 'blap',
+                'expires_in': 10
+            }, {
+                'content-type': 'application/json'
+            })
+
+        req = mock.MagicMock()
+        req.build_absolute_uri.return_value = 'https://redirect_uri'
+        session = {'uaa_refresh_token': 'boop'}
+        req.session.__getitem__.side_effect = session.__getitem__
+        req.session.__setitem__.side_effect = session.__setitem__
+
+        with httmock.HTTMock(mock_200_response):
+            self.assertEqual(auth.update_access_token_with_refresh_token(req),
+                             'lol')
+
+        self.assertEqual(session, {
+            'uaa_expiry': 110,
+            'uaa_refresh_token': 'blap'
+        })
 
     @mock.patch('uaa_client.authentication.logger.warning')
     def test_exchange_code_for_access_token_returns_none_on_failure(self, m):

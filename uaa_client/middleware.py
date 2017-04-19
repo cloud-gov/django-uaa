@@ -7,7 +7,7 @@ try:
 except ImportError:
     MiddlewareMixin = object
 
-from .authentication import update_access_token_with_refesh_token
+from .authentication import update_access_token_with_refresh_token
 
 
 logger = logging.getLogger('uaa_client')
@@ -24,7 +24,7 @@ class UaaRefreshMiddleware(MiddlewareMixin):
 
         if should_refresh:
             username = request.user.username
-            if update_access_token_with_refesh_token(request) is None:
+            if update_access_token_with_refresh_token(request) is None:
                 logger.info(
                     'Refreshing token for {} failed.'.format(username)
                 )
