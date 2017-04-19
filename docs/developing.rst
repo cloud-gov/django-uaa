@@ -41,6 +41,11 @@ To use it, run the following from the root of the repository::
 At this point you should be able to visit the locally-hosted project
 and login to fake cloud.gov as foo@example.org.
 
+If you'd like to modify any of the example app's settings, you can
+do so by creating an ``example/example/settings_local.py`` file;
+any settings defined there will override the ones in
+``example/example/settings.py``.
+
 Running tests
 ~~~~~~~~~~~~~
 
