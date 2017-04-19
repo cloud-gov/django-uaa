@@ -1,6 +1,7 @@
 from unittest import mock
 import json
 import urllib.parse
+from typing import Dict, Any  # NOQA
 import jwt
 from django.test import TestCase, RequestFactory
 from django.test.utils import override_settings
@@ -192,7 +193,7 @@ class AuthenticationTests(TestCase):
 
         req = mock.MagicMock()
         req.build_absolute_uri.return_value = 'https://redirect_uri'
-        session = {}
+        session = {}  # type: Dict[str, Any]
         req.session.__setitem__.side_effect = session.__setitem__
 
         with httmock.HTTMock(mock_200_response):

@@ -1,6 +1,8 @@
 import logging
 import time
+from typing import Callable, Iterable, Dict
 from django.contrib.auth import logout
+from django.http.request import HttpRequest
 
 try:
     from django.utils.deprecation import MiddlewareMixin  # pragma: no cover
@@ -9,17 +11,16 @@ except ImportError:  # pragma: no cover
 
 from .authentication import update_access_token_with_refresh_token
 
-
 logger = logging.getLogger('uaa_client')
 
 
-def uaa_refresh_exempt(func):
-    func.uaa_refresh_exempt = True
+def uaa_refresh_exempt(func: Callable) -> Callable:
+    setattr(func, 'uaa_refresh_exempt', True)
     return func
 
 
 class UaaRefreshMiddleware(MiddlewareMixin):
-    def _refresh(self, request):
+    def _refresh(self, request: HttpRequest) -> None:
         username = request.user.username
         if update_access_token_with_refresh_token(request) is None:
             logger.info(
@@ -31,7 +32,8 @@ class UaaRefreshMiddleware(MiddlewareMixin):
                 'Refreshing token for {} succeeded.'.format(username)
             )
 
-    def process_view(self, request, view_func, view_args, view_kwargs):
+    def process_view(self, request: HttpRequest, view_func: Callable,
+                     view_args: Iterable, view_kwargs: Dict) -> None:
         should_refresh = (
             request.user.is_authenticated() and
             'uaa_expiry' in request.session and

@@ -65,6 +65,9 @@ class UltraTestCommand(SimpleCommand):
             ['coverage', 'run', 'setup.py', 'test']
         )
         subprocess.check_call(
+            [sys.executable, '-m', 'mypy', 'uaa_client']
+        )
+        subprocess.check_call(
             ['flake8', 'uaa_client']
         )
         subprocess.check_call(
