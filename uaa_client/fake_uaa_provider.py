@@ -11,12 +11,10 @@ from django.http import (HttpResponse, HttpResponseBadRequest,
                          HttpResponseRedirect)
 
 
+from .middleware import uaa_refresh_exempt
+
+
 TOKEN_EXPIRATION = timedelta(seconds=60)
-
-
-def uaa_refresh_exempt(func):
-    func.uaa_refresh_exempt = True
-    return func
 
 
 def expect(a, b):
