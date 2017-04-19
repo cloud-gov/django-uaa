@@ -53,6 +53,13 @@ to cloud.gov-based login.
 You'll also need to have ``django.contrib.auth`` and ``uaa_client`` in your
 ``INSTALLED_APPS`` setting.
 
+Finally, you will also need to add
+``uaa_client.middleware.UaaRefreshMiddleware`` to your ``MIDDLEWARE``
+setting (or ``MIDDLEWARE_CLASSES`` if you're on Django 1.8 or 1.9). It needs
+to be placed after 
+``django.contrib.sessions.middleware.SessionMiddleware`` and
+``django.contrib.auth.middleware.AuthenticationMiddleware``.
+
 Setting up URLs
 ~~~~~~~~~~~~~~~
 
