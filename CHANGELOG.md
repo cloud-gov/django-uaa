@@ -7,6 +7,10 @@ to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [1.0.1][] - 2017-04-20
+
+This is a hotfix release to fix a broken pypi build.
+
 ## [1.0.0][] - 2017-04-20
 
 ### Added
@@ -25,5 +29,6 @@ to [Semantic Versioning](http://semver.org/).
 
 Initial release.
 
-[unreleased]: https://github.com/18F/cg-django-uaa/compare/v1.0.0...HEAD
+[unreleased]: https://github.com/18F/cg-django-uaa/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/18F/cg-django-uaa/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/18F/cg-django-uaa/compare/v0.0.1...v1.0.0
