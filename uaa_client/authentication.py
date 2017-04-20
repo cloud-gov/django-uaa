@@ -1,4 +1,6 @@
 import logging
+import time
+from typing import Dict, Any, Optional
 import requests
 import jwt
 from django.core.exceptions import MultipleObjectsReturned
@@ -6,34 +8,25 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.backends import ModelBackend
 from django.conf import settings
+from django.http.request import HttpRequest
 
 logger = logging.getLogger('uaa_client')
 
 
-def get_auth_url(request):
+def get_auth_url(request: HttpRequest) -> str:
     if settings.DEBUG and settings.UAA_AUTH_URL == 'fake:':
         return request.build_absolute_uri(reverse('uaa_client:fake_auth'))
     return settings.UAA_AUTH_URL
 
 
-def get_token_url(request):
+def get_token_url(request: HttpRequest) -> str:
     if settings.DEBUG and settings.UAA_TOKEN_URL == 'fake:':
         return request.build_absolute_uri(reverse('uaa_client:fake_token'))
     return settings.UAA_TOKEN_URL
 
 
-def exchange_code_for_access_token(request, code):
-    redirect_uri = request.build_absolute_uri(reverse('uaa_client:callback'))
-
-    payload = {
-        'grant_type': 'authorization_code',
-        'code': code,
-        'redirect_uri': redirect_uri,
-        'response_type': 'token',
-        'client_id': settings.UAA_CLIENT_ID,
-        'client_secret': settings.UAA_CLIENT_SECRET
-    }
-
+def obtain_access_token(request: HttpRequest,
+                        payload: Dict[str, Any]) -> Optional[str]:
     token_url = get_token_url(request)
     token_req = requests.post(token_url, data=payload)
     if token_req.status_code != 200:
@@ -46,9 +39,35 @@ def exchange_code_for_access_token(request, code):
         return None
 
     response = token_req.json()
-    request.session.set_expiry(response['expires_in'])
+    request.session['uaa_expiry'] = int(time.time()) + response['expires_in']
+    request.session['uaa_refresh_token'] = response['refresh_token']
 
     return response['access_token']
+
+
+def update_access_token_with_refresh_token(
+    request: HttpRequest
+) -> Optional[str]:
+    return obtain_access_token(request, {
+        'grant_type': 'refresh_token',
+        'refresh_token': request.session['uaa_refresh_token'],
+        'client_id': settings.UAA_CLIENT_ID,
+        'client_secret': settings.UAA_CLIENT_SECRET
+    })
+
+
+def exchange_code_for_access_token(request: HttpRequest,
+                                   code: str) -> Optional[str]:
+    redirect_uri = request.build_absolute_uri(reverse('uaa_client:callback'))
+
+    return obtain_access_token(request, {
+        'grant_type': 'authorization_code',
+        'code': code,
+        'redirect_uri': redirect_uri,
+        'response_type': 'token',
+        'client_id': settings.UAA_CLIENT_ID,
+        'client_secret': settings.UAA_CLIENT_SECRET
+    })
 
 
 class UaaBackend(ModelBackend):

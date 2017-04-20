@@ -7,10 +7,14 @@ from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST, require_GET
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import (HttpResponse, HttpResponseBadRequest,
+                         HttpResponseRedirect)
 
 
-TOKEN_EXPIRATION = timedelta(hours=1)
+from .middleware import uaa_refresh_exempt
+
+
+TOKEN_EXPIRATION = timedelta(seconds=60)
 
 
 def expect(a, b):
@@ -39,17 +43,25 @@ def authorize(request):
     return HttpResponseRedirect('%s?%s' % (url, qs))
 
 
+@uaa_refresh_exempt
 @csrf_exempt
 @require_POST
 def access_token(request):
     client_id = settings.UAA_CLIENT_ID
 
-    email = request.POST['code']
+    grant_type = request.POST.get('grant_type')
+
+    if grant_type == 'authorization_code':
+        email = request.POST['code']
+        expect(request.POST.get('response_type'), 'token')
+    elif grant_type == 'refresh_token':
+        preamble, email = request.POST['refresh_token'].split(':')
+        expect(preamble, 'fake_oauth2_refresh_token')
+    else:
+        return HttpResponseBadRequest("Invalid grant_type: %s" % grant_type)
 
     expect(request.POST.get('client_id'), client_id)
     expect(request.POST.get('client_secret'), settings.UAA_CLIENT_SECRET)
-    expect(request.POST.get('grant_type'), 'authorization_code')
-    expect(request.POST.get('response_type'), 'token')
 
     res = HttpResponse()
     res['content-type'] = 'application/json'
@@ -95,7 +107,7 @@ def access_token(request):
         'access_token': access_token.decode('ascii'),
         'expires_in': int(TOKEN_EXPIRATION.total_seconds()),
         'jti': 'fake_jti',
-        'refresh_token': 'fake_oauth2_refresh_token',
+        'refresh_token': 'fake_oauth2_refresh_token:%s' % email,
         'scope': 'openid',
         'token_type': 'bearer'
     })
