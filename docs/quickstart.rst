@@ -58,7 +58,17 @@ Finally, you will also need to add
 setting (or ``MIDDLEWARE_CLASSES`` if you're on Django 1.8 or 1.9). It needs
 to be placed after 
 ``django.contrib.sessions.middleware.SessionMiddleware`` and
-``django.contrib.auth.middleware.AuthenticationMiddleware``.
+``django.contrib.auth.middleware.AuthenticationMiddleware``, e.g.:
+
+.. code-block:: python
+
+   MIDDLEWARE = [
+       # ...
+       'django.contrib.sessions.middleware.SessionMiddleware',
+       'django.contrib.auth.middleware.AuthenticationMiddleware',
+       'uaa_client.middleware.UaaRefreshMiddleware',
+       # ...
+   ]
 
 Setting up URLs
 ~~~~~~~~~~~~~~~
