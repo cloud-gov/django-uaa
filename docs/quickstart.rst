@@ -33,6 +33,9 @@ Begin by adding the following setting to your Django settings file:
     ``https://uaa.fr.cloud.gov/oauth/token``. Note that it may
     be at an entirely different domain from the authorize endpoint.
 
+For information about getting a client ID and secret, see the `cloud.gov 
+docs <https://cloud.gov/docs/services/cloud-gov-identity-provider/>`_.
+
 Also make sure you add ``'uaa_client.authentication.UaaBackend'`` to
 your ``AUTHENTICATION_BACKENDS`` setting.
 
