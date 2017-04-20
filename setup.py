@@ -22,12 +22,12 @@ class ManualTestCommand(SimpleCommand):
 
     SDIST_PATH = os.path.join(
         'dist',
-        'cg_django_uaa-{}-py3-none-any.whl'.format(VERSION)
+        'cg-django-uaa-{}.tar.gz'.format(VERSION)
     )
 
     def run(self):
         if not os.path.exists(self.SDIST_PATH):
-            print("Please run 'python setup.py bdist_wheel' first.")
+            print("Please run 'python setup.py sdist' first.")
             sys.exit(1)
 
         import django
