@@ -19,6 +19,8 @@
 #
 import os
 import sys
+from recommonmark.parser import CommonMarkParser
+from recommonmark.transform import AutoStructify
 
 sys.path.insert(0, os.path.abspath(os.path.join('..', 'example')))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "example.settings")
@@ -45,10 +47,9 @@ extensions = [
 templates_path = ['_templates']
 
 # The suffix(es) of source filenames.
-# You can specify multiple suffix as a list of string:
 #
-# source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+source_parsers = {'.md': CommonMarkParser}
+source_suffix = ['.rst', '.md']
 
 # The master toctree document.
 master_doc = 'index'
@@ -181,3 +182,8 @@ intersphinx_mapping = {
                'https://docs.djangoproject.com/en/1.10/_objects/'),
     'python': ('https://docs.python.org/3.5', None),
 }
+
+def setup(app):
+    app.add_config_value('recommonmark_config', {
+    }, True)
+    app.add_transform(AutoStructify)

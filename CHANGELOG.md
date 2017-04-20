@@ -1,4 +1,4 @@
-# Change Log
+# Change log
 
 All notable changes to this project will be documented in this file,
 which uses the format described in
@@ -13,7 +13,7 @@ to [Semantic Versioning](http://semver.org/).
   is required for security. This involves adding
   `uaa_client.middleware.UaaRefreshMiddleware` to your
   middleware setting, after Django's session and authentication
-  middleware. For more details, see the documentation.
+  middleware. For more details, see the quick start guide.
 
 * The example app now supports an optional `settings_local.py`,
   so it's easy to e.g. connect to the real cloud.gov for manual
