@@ -1,4 +1,4 @@
-FROM python:3.4
+FROM python:3.5
 
 # This Dockerfile manually installs cg-django-uaa from a built
 # distribution and sets up the example app to run. It can be used
