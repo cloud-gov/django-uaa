@@ -274,3 +274,16 @@ class AuthenticationTests(TestCase):
         backend = auth.UaaBackend()
         user = backend.authenticate('validcode', 'req')
         self.assertEqual(user.email, 'foo@example.org')
+
+    @override_settings(
+        UAA_APPROVED_DOMAINS=['example.org']
+    )
+    @mock.patch(
+        'uaa_client.authentication.exchange_code_for_access_token',
+        return_value='anything'
+    )
+    @mock.patch('jwt.decode', return_value={'email':'foo@thewrongplace.org'})
+    def test_do_not_create_user_when_domain_is_not_approved(self, m1, m2):
+        backend = auth.UaaBackend()
+        user = backend.authenticate('validcode', 'req')
+        self.assertEqual(user, None)
