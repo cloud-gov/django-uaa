@@ -96,10 +96,22 @@ class UaaBackend(ModelBackend):
         try:
             return User.objects.get(email__iexact=email)
         except User.DoesNotExist:
-            logger.info(
-                'User with email {} does not exist'.format(email)
-            )
-            return None
+            try:
+                email_pieces = email.split('@')
+                if email_pieces[1] in settings.UAA_APPROVED_DOMAINS:
+                    User.objects.create_user(email_pieces[0], email)
+                    return User.objects.get(email__iexact=email)
+                else:
+                    logger.info(
+                        'User with email {} does not exist and is not '
+                        'from an approved domain'.format(email)
+                    )
+                    return None
+            except AttributeError:
+                logger.info(
+                    'User with email {} does not exist'.format(email)
+                )
+                return None
         except MultipleObjectsReturned:
             logger.warning(
                 'Multiple users with email {} exist'.format(email)
