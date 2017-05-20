@@ -50,6 +50,10 @@ SETTINGS_DICT = {
             'context_processors': [],
         },
     }],
+    'UAA_CLIENT_ID': 'something',
+    'UAA_CLIENT_SECRET': 'something_secret',
+    'UAA_AUTH_URL': 'https://auth.example.gov',
+    'UAA_TOKEN_URL': 'https://token.example.gov',
 }
 
 
