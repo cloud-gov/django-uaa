@@ -33,7 +33,7 @@ Begin by adding the following setting to your Django settings file:
     ``https://uaa.fr.cloud.gov/oauth/token``. Note that it may
     be at an entirely different domain from the authorize endpoint.
 
-For information about getting a client ID and secret, see the `cloud.gov 
+For information about getting a client ID and secret, see the `cloud.gov
 docs <https://cloud.gov/docs/services/cloud-gov-identity-provider/>`_.
 
 Also make sure you add ``'uaa_client.authentication.UaaBackend'`` to
@@ -46,8 +46,9 @@ your ``AUTHENTICATION_BACKENDS`` setting.
     need to manually create users through Django's admin UI or via
     ``manage.py createsuperuser``.
 
-    To override this default behavior, you may subclass
-    :class:`uaa_client.authentication.UaaBackend`.
+    To override this default behavior, you can set ``UAA_APPROVED_DOMAINS`` to
+    create users for specific email domains_. For more advanced cases, you may
+    subclass :class:`uaa_client.authentication.UaaBackend`.
 
 You will likely want to set ``LOGIN_URL`` to ``'uaa_client:login'``, so
 that any views which require login will automatically be redirected
@@ -71,6 +72,21 @@ middleware, e.g.:
        'uaa_client.middleware.UaaRefreshMiddleware',
        # ...
    ]
+
+
+Optional settings
+~~~~~~~~~~~~~~~~~
+
+.. _domains:
+
+By default, users must be created manually before they can authenticate. If
+you'd like, you can approve certain domains to create users if they do not
+already exist:
+
+``UAA_APPROVED_DOMAINS``
+    This is an array of domains for which all emails should be able to log in
+    to the site. If a user authenticates from one of the domains but a user
+    account doesn't exist, the backend will create one and log the new user in.
 
 Setting up URLs
 ~~~~~~~~~~~~~~~
@@ -110,7 +126,7 @@ string values, including:
 ``'authenticate_failed'``
     This means that the underlying call to
     :func:`django.contrib.auth.authenticate` returned ``None`` instead of
-    a user. The actual reasons for the failure depend on the 
+    a user. The actual reasons for the failure depend on the
     :class:`uaa_client.authentication.UaaBackend` your project is
     configured to use; it could mean, for instance, that the OAuth2
     code passed back from the cloud.gov's authorize endpoint was invalid,
