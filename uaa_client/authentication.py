@@ -93,23 +93,19 @@ class UaaBackend(ModelBackend):
         of security policies for logins.
         '''
 
+        APPROVED_DOMAINS = getattr(settings, 'UAA_APPROVED_DOMAINS', [])
+
         try:
             return User.objects.get(email__iexact=email)
         except User.DoesNotExist:
-            try:
-                email_pieces = email.split('@')
-                if email_pieces[1] in settings.UAA_APPROVED_DOMAINS:
-                    User.objects.create_user(email_pieces[0], email)
-                    return User.objects.get(email__iexact=email)
-                else:
-                    logger.info(
-                        'User with email {} does not exist and is not '
-                        'from an approved domain'.format(email)
-                    )
-                    return None
-            except AttributeError:
+            email_pieces = email.split('@')
+            if email_pieces[1] in APPROVED_DOMAINS:
+                User.objects.create_user(email_pieces[0], email)
+                return User.objects.get(email__iexact=email)
+            else:
                 logger.info(
-                    'User with email {} does not exist'.format(email)
+                    'User with email {} does not exist and is not '
+                    'from an approved domain'.format(email)
                 )
                 return None
         except MultipleObjectsReturned:

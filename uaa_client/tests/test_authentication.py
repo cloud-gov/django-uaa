@@ -218,7 +218,8 @@ class AuthenticationTests(TestCase):
     @mock.patch('uaa_client.authentication.logger.info')
     def test_get_user_by_email_returns_none_when_user_does_not_exist(self, m):
         self.assertEqual(get_user_by_email('foo@example.org'), None)
-        m.assert_called_with('User with email foo@example.org does not exist')
+        m.assert_called_with('User with email foo@example.org does not exist'
+                             ' and is not from an approved domain')
 
     @mock.patch('uaa_client.authentication.logger.warning')
     def test_get_user_by_email_returns_none_when_many_users_exist(self, m):
@@ -269,7 +270,7 @@ class AuthenticationTests(TestCase):
         'uaa_client.authentication.exchange_code_for_access_token',
         return_value='anything'
     )
-    @mock.patch('jwt.decode', return_value={'email':'foo@example.org'})
+    @mock.patch('jwt.decode', return_value={'email': 'foo@example.org'})
     def test_create_user_when_domain_is_approved(self, m1, m2):
         backend = auth.UaaBackend()
         user = backend.authenticate('validcode', 'req')
@@ -282,7 +283,7 @@ class AuthenticationTests(TestCase):
         'uaa_client.authentication.exchange_code_for_access_token',
         return_value='anything'
     )
-    @mock.patch('jwt.decode', return_value={'email':'foo@thewrongplace.org'})
+    @mock.patch('jwt.decode', return_value={'email': 'foo@thewrongplace.org'})
     def test_do_not_create_user_when_domain_is_not_approved(self, m1, m2):
         backend = auth.UaaBackend()
         user = backend.authenticate('validcode', 'req')
