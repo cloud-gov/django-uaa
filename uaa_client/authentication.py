@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.backends import ModelBackend
 from django.conf import settings
 from django.http.request import HttpRequest
+from django.utils.text import slugify
 
 logger = logging.getLogger('uaa_client')
 
@@ -100,7 +101,8 @@ class UaaBackend(ModelBackend):
         except User.DoesNotExist:
             email_pieces = email.split('@')
             if email_pieces[1] in APPROVED_DOMAINS:
-                User.objects.create_user(email_pieces[0], email)
+                user_slug = slugify(email_pieces[0])
+                User.objects.create_user(user_slug, email)
                 return User.objects.get(email__iexact=email)
             else:
                 logger.info(
