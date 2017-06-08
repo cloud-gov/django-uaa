@@ -9,7 +9,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.backends import ModelBackend
 from django.conf import settings
 from django.http.request import HttpRequest
-from django.utils.text import slugify
 
 logger = logging.getLogger('uaa_client')
 
@@ -101,9 +100,7 @@ class UaaBackend(ModelBackend):
         except User.DoesNotExist:
             email_pieces = email.split('@')
             if email_pieces[1] in APPROVED_DOMAINS:
-                user_slug = slugify(email_pieces[0])
-                User.objects.create_user(user_slug, email)
-                return User.objects.get(email__iexact=email)
+                return UaaBackend.create_user_by_email(email)
             else:
                 logger.info(
                     'User with email {} does not exist and is not '
@@ -115,6 +112,11 @@ class UaaBackend(ModelBackend):
                 'Multiple users with email {} exist'.format(email)
             )
             return None
+
+    @staticmethod
+    def create_user_by_email(email):
+        User.objects.create_user(email, email)
+        return User.objects.get(email__iexact=email)
 
     def authenticate(self, uaa_oauth2_code=None, request=None, **kwargs):
         if uaa_oauth2_code is None or request is None:

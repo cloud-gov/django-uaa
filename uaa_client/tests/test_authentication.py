@@ -287,7 +287,7 @@ class AuthenticationTests(TestCase):
     def test_slugify_user_when_domain_is_approved(self, m1, m2):
         backend = auth.UaaBackend()
         user = backend.authenticate('validcode', 'req')
-        self.assertEqual(user.username, 'fooperson')
+        self.assertEqual(user.username, 'foo.person@example.org')
 
     @override_settings(
         UAA_APPROVED_DOMAINS=['example.org']
