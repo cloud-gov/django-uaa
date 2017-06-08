@@ -98,15 +98,7 @@ class UaaBackend(ModelBackend):
         try:
             return User.objects.get(email__iexact=email)
         except User.DoesNotExist:
-            email_pieces = email.split('@')
-            if email_pieces[1] in APPROVED_DOMAINS:
-                return UaaBackend.create_user_by_email(email)
-            else:
-                logger.info(
-                    'User with email {} does not exist and is not '
-                    'from an approved domain'.format(email)
-                )
-                return None
+            return UaaBackend.create_user_by_email(email)
         except MultipleObjectsReturned:
             logger.warning(
                 'Multiple users with email {} exist'.format(email)
@@ -115,8 +107,20 @@ class UaaBackend(ModelBackend):
 
     @staticmethod
     def create_user_by_email(email):
-        User.objects.create_user(email, email)
-        return User.objects.get(email__iexact=email)
+        '''
+        Return a new user with the username and email set to the provided email
+        address.
+        '''
+        email_pieces = email.split('@')
+        if email_pieces[1] in APPROVED_DOMAINS:
+            User.objects.create_user(email, email)
+            return User.objects.get(email__iexact=email)
+        else:
+            logger.info(
+                'User with email {} does not exist and is not '
+                'from an approved domain'.format(email)
+            )
+            return None
 
     def authenticate(self, uaa_oauth2_code=None, request=None, **kwargs):
         if uaa_oauth2_code is None or request is None:
