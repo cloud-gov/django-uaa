@@ -92,9 +92,6 @@ class UaaBackend(ModelBackend):
         Subclasses may override this method to account for different kinds
         of security policies for logins.
         '''
-
-        APPROVED_DOMAINS = getattr(settings, 'UAA_APPROVED_DOMAINS', [])
-
         try:
             return User.objects.get(email__iexact=email)
         except User.DoesNotExist:
@@ -110,9 +107,11 @@ class UaaBackend(ModelBackend):
         '''
         Determines whether or not a new user can be created.
         '''
+        APPROVED_DOMAINS = getattr(settings, 'UAA_APPROVED_DOMAINS', [])
+
         email_pieces = email.split('@')
         if email_pieces[1] in APPROVED_DOMAINS:
-            UaaBackend.create_user_by_email(email)
+            return UaaBackend.create_user_by_email(email)
         else:
             logger.info(
                 'User with email {} does not exist and is not '
