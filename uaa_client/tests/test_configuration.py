@@ -5,6 +5,12 @@ from ..configuration import validate_configuration
 
 
 class ConfigurationTests(SimpleTestCase):
+    @override_settings(
+        UAA_CLIENT_ID=None,
+        UAA_CLIENT_SECRET=None,
+        UAA_AUTH_URL=None,
+        UAA_TOKEN_URL=None,
+    )
     def test_err_if_no_settings_are_defined(self):
         with self.assertRaises(ImproperlyConfigured):
             validate_configuration()
