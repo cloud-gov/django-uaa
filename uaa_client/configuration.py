@@ -7,7 +7,15 @@ from django.http import HttpResponseNotFound
 from .authentication import UaaBackend
 
 
-def validate_configuration():
+# To determine whether we're running tests, we're going to remember the
+# earliest value of settings.DEBUG at the time that our app was initialized.
+# For more details on why this is important, see:
+#
+# https://github.com/18F/cg-django-uaa/issues/18
+earliest_debug_setting = settings.DEBUG
+
+
+def validate_configuration(use_earliest_debug_setting=True):
     for setting in ['UAA_CLIENT_ID', 'UAA_CLIENT_SECRET',
                     'UAA_AUTH_URL', 'UAA_TOKEN_URL']:
         val = getattr(settings, setting, None)
@@ -27,7 +35,11 @@ def validate_configuration():
             'must also be set to "fake:"'
         )
 
-    if not settings.DEBUG:
+    debug = settings.DEBUG
+    if use_earliest_debug_setting:
+        debug = earliest_debug_setting
+
+    if not debug:
         if not (settings.UAA_AUTH_URL.startswith('https://') and
                 settings.UAA_TOKEN_URL.startswith('https://')):
             raise ImproperlyConfigured(
