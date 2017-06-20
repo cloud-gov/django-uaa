@@ -7,6 +7,17 @@ to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+* The library no longer raises spurious `ImproperlyConfigured` errors
+  during test suite runs.
+
+* Added an optional `UAA_APPROVED_DOMAINS` setting, allowing users to
+  be auto-created if their email is from an approved list of domains. See
+  the quick start for more details.
+
+* Added more documented methods to `UaaBackend` for easier customization.
+  Static methods have also been converted to class methods for easier
+  subclassing.
+
 ## [1.0.1][] - 2017-04-20
 
 This is a hotfix release to fix a broken pypi build.
