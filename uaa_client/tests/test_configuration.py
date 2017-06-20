@@ -1,7 +1,11 @@
 from django.test import SimpleTestCase, override_settings
 from django.core.exceptions import ImproperlyConfigured
 
-from ..configuration import validate_configuration
+from .. import configuration
+
+
+def validate_configuration():
+    configuration.validate_configuration(use_earliest_debug_setting=False)
 
 
 class ConfigurationTests(SimpleTestCase):
