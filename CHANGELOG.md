@@ -7,6 +7,10 @@ to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [1.2.0][] - 2017-09-18
+
+* An info-level message is logged when users authenticate.
+
 ## [1.1.0][] - 2017-06-20
 
 * The library no longer raises spurious `ImproperlyConfigured` errors
@@ -42,7 +46,8 @@ This is a hotfix release to fix a broken pypi build.
 
 Initial release.
 
-[unreleased]: https://github.com/18F/cg-django-uaa/compare/v1.1.0...HEAD
+[unreleased]: https://github.com/18F/cg-django-uaa/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/18F/cg-django-uaa/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/18F/cg-django-uaa/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/18F/cg-django-uaa/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/18F/cg-django-uaa/compare/v0.0.1...v1.0.0
