@@ -154,5 +154,8 @@ class UaaBackend(ModelBackend):
             return None
 
         user_info = jwt.decode(access_token, verify=False)
+        email = user_info['email']
 
-        return self.get_user_by_email(user_info['email'])
+        logger.info('Authenticating user with email {}'.format(email))
+
+        return self.get_user_by_email(email)
