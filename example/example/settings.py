@@ -52,7 +52,8 @@ MIDDLEWARE = [
 ]
 
 if django.get_version().startswith('1.8.') or \
-        django.get_version().startswith('1.9.'):
+        django.get_version().startswith('1.9.') or \
+        django.get_version().startswith('2.'):
     MIDDLEWARE_CLASSES = MIDDLEWARE
 
 ROOT_URLCONF = 'example.urls'

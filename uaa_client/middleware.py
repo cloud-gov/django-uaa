@@ -10,6 +10,7 @@ except ImportError:  # pragma: no cover
     # We're on Django 1.8 or 1.9.
     MiddlewareMixin = object  # pragma: no cover
 
+from .compat import is_user_authenticated
 from .authentication import update_access_token_with_refresh_token
 
 logger = logging.getLogger('uaa_client')
@@ -44,7 +45,7 @@ class UaaRefreshMiddleware(MiddlewareMixin):
     def process_view(self, request: HttpRequest, view_func: Callable,
                      view_args: Iterable, view_kwargs: Dict) -> None:
         should_refresh = (
-            request.user.is_authenticated() and
+            is_user_authenticated(request.user) and
             'uaa_expiry' in request.session and
             time.time() > request.session['uaa_expiry'] and
             not getattr(view_func, 'uaa_refresh_exempt', False)
