@@ -1,8 +1,8 @@
 try:
-    from django.core.urlresolvers import reverse  # NOQA
+    from django.core.urlresolvers import reverse  # NOQA  pragma: no cover
 except ImportError:
     # Django 2.0+
-    from django.urls import reverse  # NOQA
+    from django.urls import reverse  # NOQA  pragma: no cover
 
 
 def is_user_authenticated(user):
