@@ -3,14 +3,13 @@ from datetime import timedelta
 import json
 import jwt
 from django.shortcuts import render
-from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST, require_GET
 from django.conf import settings
 from django.http import (HttpResponse, HttpResponseBadRequest,
                          HttpResponseRedirect)
 
-
+from .compat import reverse
 from .middleware import uaa_refresh_exempt
 
 
