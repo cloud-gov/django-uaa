@@ -9,6 +9,10 @@ to [Semantic Versioning](http://semver.org/).
 
 * Added support for Django 2.0.
 
+* Added the `uaa_client.decorators.staff_login_required` decorator
+  and a "Fixing admin login" section to the quick start guide
+  that documents how to use it.
+
 ## [1.2.0][] - 2017-09-18
 
 * An info-level message is logged when users authenticate.
