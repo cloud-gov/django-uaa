@@ -106,6 +106,32 @@ You will want to add the following to your Django project's URLconf.
 If you are using Django 1.8, you will need to additionally pass a
 ``namespace="uaa_client"`` keyword argument to ``include()``.
 
+Fixing admin login
+~~~~~~~~~~~~~~~~~~
+
+If you're using Django's admin UI, you'll also want to configure it to
+delegate to UAA instead of asking the user for their username and
+password.  This can most easily be done by using the
+:func:`uaa_client.decorators.staff_login_required` decorator in your
+URLconf:
+
+.. code-block:: python
+
+   from django.contrib import admin
+
+   from uaa_client.decorators import staff_login_required
+
+   # Wrap the admin site login with our staff_login_required decorator,
+   # which will raise a PermissionDenied exception if a logged-in, but
+   # non-staff user attempts to access the login page.
+   admin.site.login = staff_login_required(admin.site.login)
+
+   urlpatterns = [
+       # Other URL patterns ...
+       url(r'^admin/', include(admin.site.urls)),
+       # More URL patterns ...
+   ]
+
 Required templates
 ~~~~~~~~~~~~~~~~~~
 

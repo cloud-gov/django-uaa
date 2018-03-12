@@ -14,11 +14,12 @@ def staff_login_required(function=None,
                          login_url=None):
     '''
     Decorator to check that the user accessing the decorated view has their
-    is_staff flag set to True.
+    ``is_staff`` flag set to ``True``.
 
-    It will first redirect to login_url or the default login url if the user is
-    not authenticated. If the user is authenticated but is not staff, then
-    a PermissionDenied exception will be raised.
+    It will first redirect to ``login_url`` or the default login url if the
+    user is not authenticated. If the user is authenticated but is not
+    staff, then a :class:`django.core.exceptions.PermissionDenied` exception
+    will be raised.
     '''
 
     # This is based off code from the Django project:
