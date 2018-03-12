@@ -10,3 +10,10 @@
   and then visit <a href="{% url 'admin:index' %}">{% url 'admin:index' %}</a>, logging
   in using the email address you just registered with.
 </p>
+<p>
+  {% if user.is_authenticated %}
+    You are currently logged in as {{ user.email }}, who is
+    {% if not user.is_staff %}not{% endif %} a staff member.
+    <a href="{% url 'logout' %}">You can log out.</a>
+  {% endif %}
+</p>

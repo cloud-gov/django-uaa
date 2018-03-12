@@ -14,17 +14,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 import django
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.conf.urls import url, include
-from django.contrib import admin
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib import admin, auth
 
-admin.site.login = user_passes_test(lambda user: user.is_staff)(
-    admin.site.login
-)
+from uaa_client.decorators import staff_login_required
+
+admin.site.login = staff_login_required(admin.site.login)
 
 def index(request):
     return render(request, 'index.html')
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
 
 _kwargs = {}
 
@@ -35,4 +38,5 @@ urlpatterns = [
     url(r'^$', index),
     url(r'^admin/', admin.site.urls),
     url(r'^auth/', include('uaa_client.urls', **_kwargs)),
+    url(r'^logout/', logout, name='logout'),
 ]
