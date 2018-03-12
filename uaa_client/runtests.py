@@ -56,6 +56,9 @@ SETTINGS_DICT = {
     'UAA_TOKEN_URL': 'https://token.example.gov',
 }
 
+# Django 2.0+
+SETTINGS_DICT['MIDDLEWARE'] = SETTINGS_DICT['MIDDLEWARE_CLASSES']
+
 
 def run_tests():
     # Making Django run this way is a two-step process. First, call

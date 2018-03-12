@@ -4,11 +4,13 @@ from typing import Dict, Any, Optional
 import requests
 import jwt
 from django.core.exceptions import MultipleObjectsReturned
-from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.backends import ModelBackend
 from django.conf import settings
 from django.http.request import HttpRequest
+
+from .compat import reverse
+
 
 logger = logging.getLogger('uaa_client')
 

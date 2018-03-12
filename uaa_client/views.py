@@ -4,10 +4,10 @@ import django.contrib.auth
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.shortcuts import resolve_url, render
-from django.core.urlresolvers import reverse
 from django.utils.crypto import get_random_string
 from django.utils.http import is_safe_url
 
+from .compat import reverse
 from .authentication import get_auth_url
 
 
