@@ -12,6 +12,7 @@ Welcome to cg-django-uaa's documentation!
 
    quickstart
    backends
+   decorators
    developing
    changelog
 
