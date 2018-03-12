@@ -7,6 +7,8 @@ to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+* Added support for Django 2.0.
+
 ## [1.2.0][] - 2017-09-18
 
 * An info-level message is logged when users authenticate.
