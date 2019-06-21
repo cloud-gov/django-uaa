@@ -11,3 +11,4 @@ docs/_build_html/
 build/
 dist/
 example/example/settings_local.py
+.vscode

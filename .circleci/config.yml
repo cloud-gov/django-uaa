@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: circleci/python:3.6.2
         environment:
-          DJANGO_VERSION: 1.11.2
+          DJANGO_VERSION: 2.2.2
     steps:
       - checkout
       - restore_cache:
