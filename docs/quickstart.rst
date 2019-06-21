@@ -6,6 +6,11 @@ Prerequisites
 
 You will need Python 3.5 or above, and Django 2.2 or above.
 
+.. Note::
+    If you're on an older version of Django you can pin to version 1.3.0.
+    **Note that 1.3.0 is unmaintained**, and you should upgrade
+    to Django 2.2 for continued support.
+
 Installation
 ~~~~~~~~~~~~
 
