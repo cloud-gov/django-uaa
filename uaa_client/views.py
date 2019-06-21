@@ -48,8 +48,8 @@ def oauth2_callback(request):
     if code is None:
         return login_error(request, 'missing_code')
 
-    user = django.contrib.auth.authenticate(uaa_oauth2_code=code,
-                                            request=request)
+    user = django.contrib.auth.authenticate(request,
+                                            uaa_oauth2_code=code)
 
     if user is None:
         return login_error(request, 'authenticate_failed')
@@ -61,7 +61,7 @@ def oauth2_callback(request):
     next_url = request.session['oauth2_next_url']
     del request.session['oauth2_next_url']
 
-    if not is_safe_url(url=next_url, host=request.get_host()):
+    if not is_safe_url(url=next_url, allowed_hosts=[request.get_host()]):
         next_url = resolve_url(
             request.build_absolute_uri(settings.LOGIN_REDIRECT_URL)
             )

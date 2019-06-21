@@ -147,7 +147,7 @@ class UaaBackend(ModelBackend):
         User.objects.create_user(email, email)
         return User.objects.get(email__iexact=email)
 
-    def authenticate(self, uaa_oauth2_code=None, request=None, **kwargs):
+    def authenticate(self, request, uaa_oauth2_code=None, **kwargs):
         if uaa_oauth2_code is None or request is None:
             return None
 

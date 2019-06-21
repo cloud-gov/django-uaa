@@ -229,17 +229,20 @@ class AuthenticationTests(TestCase):
         m.assert_called_with('Multiple users with email foo@example.org exist')
 
     def test_authenticate_returns_none_when_kwargs_not_passed(self):
+        req = RequestFactory().get('/')
         backend = auth.UaaBackend()
-        self.assertEqual(backend.authenticate(), None)
+        self.assertEqual(backend.authenticate(req), None)
 
     @mock.patch('uaa_client.authentication.exchange_code_for_access_token',
                 return_value=None)
     def test_authenticate_returns_none_when_code_is_invalid(self, m):
+        req = RequestFactory().get('/')
         backend = auth.UaaBackend()
-        self.assertEqual(backend.authenticate('invalidcode', 'req'), None)
-        m.assert_called_with('req', 'invalidcode')
+        self.assertEqual(backend.authenticate(req, 'invalidcode'), None)
+        m.assert_called_with(req, 'invalidcode')
 
     def test_authenticate_returns_user_on_success(self):
+        req = RequestFactory().get('/')
         backend = auth.UaaBackend()
         access_token = jwt.encode({
             'email': 'foo@example.org'
@@ -250,9 +253,9 @@ class AuthenticationTests(TestCase):
             'uaa_client.authentication.exchange_code_for_access_token',
             return_value=access_token
         ) as ex:
-            user = backend.authenticate('validcode', 'req')
+            user = backend.authenticate(req, 'validcode')
             self.assertEqual(user.email, 'foo@example.org')
-            ex.assert_called_with('req', 'validcode')
+            ex.assert_called_with(req, 'validcode')
 
     def test_get_user_returns_none_when_id_is_invalid(self):
         backend = auth.UaaBackend()
