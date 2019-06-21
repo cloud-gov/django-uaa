@@ -98,7 +98,7 @@ setup(name='cg-django-uaa',
       include_package_data=True,
       packages=find_packages(),
       install_requires=[
-          'django>=2.1,<3.0',
+          'django~=2.2.0',
           'PyJWT>=1.4.2',
           'requests>=2.11.0'
       ],
