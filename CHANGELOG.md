@@ -7,6 +7,7 @@ to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [2.0.0][] - 2019-06-24
 * Added support for Django 2.2
 
 * Removed support for Django 2.0 and 1.X
