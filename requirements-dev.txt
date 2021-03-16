@@ -1,7 +1,7 @@
 flake8==3.2.1
-coverage==4.3.4
+coverage>=4.3.4
 Sphinx==1.5.2
 sphinx-autobuild==0.6.0
 sphinx-rtd-theme==0.1.9
-mypy==0.501
+mypy>=0.501
 recommonmark==0.4.0

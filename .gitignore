@@ -12,3 +12,4 @@ build/
 dist/
 example/example/settings_local.py
 .vscode
+.tox
