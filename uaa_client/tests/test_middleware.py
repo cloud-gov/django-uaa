@@ -25,16 +25,12 @@ class FakeRequest:
 
 
 class MiddlewareTests(TestCase):
-    # Note: we're ignoring the type on patch.object due to a bug in
-    # mypy, which has been fixed in
-    # https://github.com/python/typeshed/pull/1142 but not made its
-    # way into a release yet.
 
     def assertNoRefresh(self, request, view_func=noop, time=0):
         mw = UaaRefreshMiddleware()
 
         with patch('time.time', return_value=time):
-            with patch.object(mw, '_refresh') as m:  # type: ignore
+            with patch.object(mw, '_refresh') as m:
                 mw.process_view(request, view_func, [], {})
                 m.assert_not_called()
 
@@ -54,8 +50,8 @@ class MiddlewareTests(TestCase):
             session={'uaa_expiry': 150},
         ), time=200, view_func=uaa_refresh_exempt(noop))
 
-    @patch.object(middleware, 'logout')  # type: ignore
-    @patch.object(middleware,  # type: ignore
+    @patch.object(middleware, 'logout')
+    @patch.object(middleware,
                   'update_access_token_with_refresh_token')
     def test_logout_when_refresh_fails(self, refresh, logout):
         refresh.return_value = None
@@ -64,8 +60,8 @@ class MiddlewareTests(TestCase):
             UaaRefreshMiddleware().process_view(req, noop, [], {})
             logout.assert_called_once_with(req)
 
-    @patch.object(middleware, 'logout')  # type: ignore
-    @patch.object(middleware,  # type: ignore
+    @patch.object(middleware, 'logout')
+    @patch.object(middleware,
                   'update_access_token_with_refresh_token')
     def test_no_logout_when_refresh_succeeds(self, refresh, logout):
         refresh.return_value = 'I am a fake access token'
