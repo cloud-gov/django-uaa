@@ -7,6 +7,12 @@ to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [2.1.1][] - 2020-03-17
+
+* Added support for Django 3.0 and 3.1
+* Pinned upper version for PyJWT to fix install issues
+
+
 ## [2.0.0][] - 2019-06-24
 * Added support for Django 2.2
 
@@ -60,9 +66,11 @@ This is a hotfix release to fix a broken pypi build.
 
 Initial release.
 
-[unreleased]: https://github.com/18F/cg-django-uaa/compare/v1.3.0...HEAD
-[1.3.0]: https://github.com/18F/cg-django-uaa/compare/v1.2.0...v1.3.0
-[1.2.0]: https://github.com/18F/cg-django-uaa/compare/v1.1.0...v1.2.0
-[1.1.0]: https://github.com/18F/cg-django-uaa/compare/v1.0.1...v1.1.0
-[1.0.1]: https://github.com/18F/cg-django-uaa/compare/v1.0.0...v1.0.1
-[1.0.0]: https://github.com/18F/cg-django-uaa/compare/v0.0.1...v1.0.0
+[unreleased]: https://github.com/cloud-gov/cg-django-uaa/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/cloud-gov/cg-django-uaa/compare/v2.0.0...v2.1.0
+[2.0.0]: https://github.com/cloud-gov/cg-django-uaa/compare/v1.3.0...v2.0.0
+[1.3.0]: https://github.com/cloud-gov/cg-django-uaa/compare/v1.2.0...v1.3.0
+[1.2.0]: https://github.com/cloud-gov/cg-django-uaa/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/cloud-gov/cg-django-uaa/compare/v1.0.1...v1.1.0
+[1.0.1]: https://github.com/cloud-gov/cg-django-uaa/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/cloud-gov/cg-django-uaa/compare/v0.0.1...v1.0.0
