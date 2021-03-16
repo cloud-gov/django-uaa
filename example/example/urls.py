@@ -22,21 +22,24 @@ from uaa_client.decorators import staff_login_required
 
 admin.site.login = staff_login_required(admin.site.login)
 
+
 def index(request):
-    return render(request, 'index.html')
+    return render(request, "index.html")
+
 
 def logout(request):
     auth.logout(request)
-    return redirect('/')
+    return redirect("/")
+
 
 _kwargs = {}
 
-if django.get_version().startswith('1.8.'):
-    _kwargs['namespace'] = 'uaa_client'
+if django.get_version().startswith("1.8."):
+    _kwargs["namespace"] = "uaa_client"
 
 urlpatterns = [
-    url(r'^$', index),
-    url(r'^admin/', admin.site.urls),
-    url(r'^auth/', include('uaa_client.urls', **_kwargs)),
-    url(r'^logout/', logout, name='logout'),
+    url(r"^$", index),
+    url(r"^admin/", admin.site.urls),
+    url(r"^auth/", include("uaa_client.urls", **_kwargs)),
+    url(r"^logout/", logout, name="logout"),
 ]
