@@ -11,7 +11,7 @@ Developing cg-django-uaa
 
 First, clone the git repository::
 
-    git clone https://github.com/18F/cg-django-uaa
+    git clone https://github.com/cloud-gov/cg-django-uaa
 
 Then create a virtualenv for the project and install
 development dependencies::
@@ -57,6 +57,16 @@ and linting::
 Note that this command will fail if any tests do not pass, if
 there are any linting warnings, or if code coverage is not at
 100%.
+
+You can run this test against all envionments in the test matrix
+with::
+
+    tox
+
+or against specific versions, for instance python 3.8 with django 3.1::
+
+    tox -e py38-django31
+
 
 Writing documentation
 ~~~~~~~~~~~~~~~~~~~~~
