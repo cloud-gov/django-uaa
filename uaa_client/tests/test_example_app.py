@@ -5,7 +5,7 @@ from unittest import TestCase, SkipTest
 
 
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
-EXAMPLE_APP_DIR = ROOT_DIR / 'example'
+EXAMPLE_APP_DIR = ROOT_DIR / "example"
 
 
 class ExampleAppTests(TestCase):
@@ -17,10 +17,10 @@ class ExampleAppTests(TestCase):
         if not EXAMPLE_APP_DIR.exists():
             # We're being run from an installed package or something, just
             # skip this test.
-            raise SkipTest('Example app dir unavailable to distribution')
+            raise SkipTest("Example app dir unavailable to distribution")
 
         subprocess.check_output(
-            [sys.executable, 'manage.py', 'test'],
+            [sys.executable, "manage.py", "test"],
             stderr=subprocess.STDOUT,
-            cwd=str(EXAMPLE_APP_DIR)
+            cwd=str(EXAMPLE_APP_DIR),
         )
