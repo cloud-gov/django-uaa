@@ -7,6 +7,10 @@ to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [2.1.2][] - 2021-08-09
+
+* Added support for Django 3.2 LTS 
+
 ## [2.1.1][] - 2020-03-16
 
 * correctly specify django versions in setup.py 
@@ -72,6 +76,7 @@ This is a hotfix release to fix a broken pypi build.
 Initial release.
 
 [unreleased]: https://github.com/cloud-gov/cg-django-uaa/compare/v2.1.0...HEAD
+[2.1.2]: https://github.com/cloud-gov/cg-django-uaa/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/cloud-gov/cg-django-uaa/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/cloud-gov/cg-django-uaa/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/cloud-gov/cg-django-uaa/compare/v1.3.0...v2.0.0
