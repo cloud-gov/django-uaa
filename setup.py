@@ -90,7 +90,7 @@ setup(
     package_dir={"uaa_client": "uaa_client"},
     include_package_data=True,
     packages=find_packages(),
-    install_requires=["django>=2.2,<3.2", "PyJWT>=1.4.2,<2.0", "requests>=2.11.0"],
+    install_requires=["django>=2.2,<3.3", "PyJWT>=1.4.2,<2.0", "requests>=2.11.0"],
     test_suite="uaa_client.runtests.run_tests",
     tests_require=open("requirements-tests.txt", "r").read().strip().split("\n"),
     classifiers=[
@@ -100,6 +100,7 @@ setup(
         "Framework :: Django :: 2.2",
         "Framework :: Django :: 3.0",
         "Framework :: Django :: 3.1",
+        "Framework :: Django :: 3.2",
         "Intended Audience :: Developers",
         "License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
         "Operating System :: OS Independent",
