@@ -52,6 +52,7 @@ SETTINGS_DICT = {
     "UAA_CLIENT_SECRET": "something_secret",
     "UAA_AUTH_URL": "https://auth.example.gov",
     "UAA_TOKEN_URL": "https://token.example.gov",
+    "SECRET_KEY": "only-for-testing",
 }
 
 # Django 2.0+
