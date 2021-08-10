@@ -10,8 +10,8 @@ Here's how to issue a new release.
 
    ```
    rm -rf dist build
-   python setup.py sdist
-   python setup.py manualtest
+   python build
+   python test.py manualtest
    ```
 
    You should be able to visit http://localhost:8000 and log in
@@ -47,7 +47,7 @@ Here's how to issue a new release.
    password: <your password>
    ```
 
-7. Run `python setup.py sdist upload`.  The new release should now
+7. Run `python -m twine upload dist/*`.  The new release should now
    be visible on [pypi][].
 
 [GitHub releases page]: https://github.com/18F/cg-django-uaa/releases
