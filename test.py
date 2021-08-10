@@ -11,7 +11,6 @@ import subprocess
 from uaa_client import VERSION
 
 
-
 class SimpleCommand(distutils.cmd.Command):
     user_options = []
 
@@ -64,10 +63,4 @@ class DevDocsCommand(SimpleCommand):
         )
 
 
-
-setup(
-    cmdclass={
-        "devdocs": DevDocsCommand,
-        "manualtest": ManualTestCommand,
-    },
-)
+setup(cmdclass={"devdocs": DevDocsCommand, "manualtest": ManualTestCommand})
