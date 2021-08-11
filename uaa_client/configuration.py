@@ -11,7 +11,7 @@ from .authentication import UaaBackend
 # earliest value of settings.DEBUG at the time that our app was initialized.
 # For more details on why this is important, see:
 #
-# https://github.com/18F/cg-django-uaa/issues/18
+# https://github.com/cloud-gov/cg-django-uaa/issues/18
 earliest_debug_setting = settings.DEBUG
 
 
