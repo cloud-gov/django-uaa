@@ -16,13 +16,13 @@ First, clone the git repository::
 Then create a virtualenv for the project and install
 development dependencies::
 
-    virtualenv -p python3 venv
+    python -m venv venv
     source venv/bin/activate
-    pip install -r requirements-dev.txt
+    python -m pip install -r requirements-dev.txt
 
 Then install cg-django-uaa in development mode::
 
-    python setup.py develop
+    python -m pip -e .
 
 Using the example app
 ~~~~~~~~~~~~~~~~~~~~~
@@ -48,15 +48,6 @@ any settings defined there will override the ones in
 
 Running tests
 ~~~~~~~~~~~~~
-
-You can run all the tests with code coverage
-and linting::
-
-    python setup.py ultratest
-
-Note that this command will fail if any tests do not pass, if
-there are any linting warnings, or if code coverage is not at
-100%.
 
 You can run this test against all envionments in the test matrix
 with::
