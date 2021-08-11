@@ -59,7 +59,7 @@ class DevDocsCommand(SimpleCommand):
 
     def run(self):
         subprocess.check_call(
-            ["sphinx-autobuild", ".", "_build_html", "-p", "8001"], cwd="docs"
+            ["sphinx-autobuild", ".", "_build_html", "--port", "8001"], cwd="docs"
         )
 
 
