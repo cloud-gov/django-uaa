@@ -168,7 +168,7 @@ string values, including:
     logging output for the ``uaa_client`` logger at the ``INFO`` level. While
     configuring logging is outside of the scope of this guide, you may
     refer to the `example project's settings
-    <https://github.com/18F/cg-django-uaa/blob/master/example/example/settings.py>`_
+    <https://github.com/cloud-gov/cg-django-uaa/blob/main/example/example/settings.py>`_
     for an example.
 
 The other error codes generally refer to mishaps in the OAuth2 protocol

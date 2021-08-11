@@ -179,13 +179,12 @@ texinfo_documents = [
 
 intersphinx_mapping = {
     "django": (
-        "https://docs.djangoproject.com/en/1.10/",
-        "https://docs.djangoproject.com/en/1.10/_objects/",
+        "https://docs.djangoproject.com/en/3.2/",
+        "https://docs.djangoproject.com/en/3.2/_objects/",
     ),
-    "python": ("https://docs.python.org/3.5", None),
+    "python": ("https://docs.python.org/3.9", None),
 }
 
 
 def setup(app):
     app.add_config_value("recommonmark_config", {}, True)
-    app.add_transform(AutoStructify)
