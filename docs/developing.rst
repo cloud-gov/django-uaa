@@ -59,6 +59,15 @@ or against specific versions, for instance python 3.8 with django 3.1::
     tox -e py38-django31
 
 
+Formatting code
+~~~~~~~~~~~~~~~
+
+Code should be formated with `black
+<https://black.readthedocs.io/en/stable/>`_. Because we have configuration in our ``pyproject.toml``,
+you can (and should!) run this before committing::
+
+    black .
+
 Writing documentation
 ~~~~~~~~~~~~~~~~~~~~~
 
