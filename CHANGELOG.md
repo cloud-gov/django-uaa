@@ -7,7 +7,11 @@ to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
-## [2.1.2][] - 2021-08-09
+## [2.1.3][] - 2021-08-10
+
+* Fix packaging issue
+
+## [2.1.2][] - 2021-08-10
 
 * Added support for Django 3.2 LTS 
 
