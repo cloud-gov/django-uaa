@@ -5,3 +5,4 @@ mypy>=0.501
 recommonmark
 myst-parser
 django
+-e .
