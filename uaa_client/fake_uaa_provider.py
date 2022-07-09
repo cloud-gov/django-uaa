@@ -91,12 +91,12 @@ def access_token(request):
     #
     # https://developers.google.com/identity/protocols/OpenIDConnect#obtainuserinfo
     access_token = jwt.encode(
-        access_token_contents, "unused secret key (for verification)"
+        access_token_contents, "unused secret key (for verification)", algorithm="HS256"
     )
 
     res.content = json.dumps(
         {
-            "access_token": access_token.decode("ascii"),
+            "access_token": access_token,
             "expires_in": int(TOKEN_EXPIRATION.total_seconds()),
             "jti": "fake_jti",
             "refresh_token": "fake_oauth2_refresh_token:%s" % email,
