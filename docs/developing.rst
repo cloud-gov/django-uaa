@@ -22,7 +22,7 @@ development dependencies::
 
 Then install cg-django-uaa in development mode::
 
-    python -m pip -e .
+    python -m pip install -e .
 
 Using the example app
 ~~~~~~~~~~~~~~~~~~~~~
@@ -74,4 +74,4 @@ Writing documentation
 If you want to work on documentation, you can run the development
 documentation server with::
 
-    python setup.py devdocs
+    python test.py devdocs

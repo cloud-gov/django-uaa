@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.6
 
 # This Dockerfile manually installs cg-django-uaa from a built
 # distribution and sets up the example app to run. It can be used
@@ -29,7 +29,7 @@ WORKDIR /example
 
 RUN python manage.py migrate && \
   python manage.py createsuperuser --noinput \
-    --username foo --email foo@example.org
+  --username foo --email foo@example.org
 
 EXPOSE 8000
 

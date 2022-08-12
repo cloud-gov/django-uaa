@@ -28,7 +28,7 @@ class ManualTestCommand(SimpleCommand):
 
     def run(self):
         if not os.path.exists(self.SDIST_PATH):
-            print("Please run 'python setup.py sdist' first.")
+            print("Please run 'python -m build' first.")
             sys.exit(1)
 
         import django
