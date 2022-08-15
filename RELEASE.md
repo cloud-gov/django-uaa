@@ -18,12 +18,12 @@ Here's how to issue a new release:
 
    ```shell
    rm -rf dist build
-   python -m build
+   python -m build --sdist
    python test.py manualtest
    ```
 
    You should be able to visit <http://localhost:8000> and log in
-   as foo@example.org without any problems.
+   as `foo@example.org` without any problems.
 
 5. Commit and push your changes with a commit message like
    "Bump version to v1.0.4."
