@@ -154,7 +154,11 @@ class UaaBackend(ModelBackend):
         if access_token is None:
             return None
 
-        user_info = jwt.decode(access_token, verify=False)
+        user_info = jwt.decode(
+            access_token,
+            options={"verify_signature": False},
+            algorithms=["HS256", "RS256"],
+        )
         email = user_info["email"]
 
         logger.info("Authenticating user with email {}".format(email))

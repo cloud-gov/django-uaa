@@ -61,8 +61,12 @@ class FakeAuthenticationTests(TestCase):
             },
         )
         self.assertEqual(res.status_code, 200)
-        obj = json.loads(res.content.decode("utf-8"))
-        user_info = jwt.decode(obj["access_token"], verify=False)
+        obj = json.loads(res.content)
+        user_info = jwt.decode(
+            obj["access_token"],
+            options={"verify_signature": False},
+            algorithms=["HS256", "RS256"],
+        )
         self.assertEqual(user_info["email"], "bap@gsa.gov")
 
     def test_token_endpoint_works(self):
@@ -77,8 +81,12 @@ class FakeAuthenticationTests(TestCase):
             },
         )
         self.assertEqual(res.status_code, 200)
-        obj = json.loads(res.content.decode("utf-8"))
-        user_info = jwt.decode(obj["access_token"], verify=False)
+        obj = json.loads(res.content)
+        user_info = jwt.decode(
+            obj["access_token"],
+            options={"verify_signature": False},
+            algorithms=["HS256", "RS256"],
+        )
         self.assertEqual(user_info["email"], "boop@gsa.gov")
 
     @override_settings(DEBUG=False)
@@ -235,8 +243,8 @@ class AuthenticationTests(TestCase):
         req = RequestFactory().get("/")
         backend = auth.UaaBackend()
         access_token = jwt.encode(
-            {"email": "foo@example.org"}, "unused secret key"
-        ).decode("ascii")
+            {"email": "foo@example.org"}, "unused secret key", algorithm="HS256"
+        )
         User.objects.create_user("foo", "foo@example.org")
 
         with mock.patch(
