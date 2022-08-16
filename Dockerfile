@@ -29,7 +29,7 @@ WORKDIR /example
 
 RUN python manage.py migrate && \
   python manage.py createsuperuser --noinput \
-    --username foo --email foo@example.org
+  --username foo --email foo@example.org
 
 EXPOSE 8000
 
