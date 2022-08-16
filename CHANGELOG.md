@@ -7,17 +7,21 @@ to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [2.1.4][] - 2022-08-16
+
+* Update PyJWT version to >= `2.4.0` to [address vulnerability](https://security.snyk.io/vuln/SNYK-PYTHON-PYJWT-2840625)
+
 ## [2.1.3][] - 2021-08-10
 
 * Fix packaging issue
 
 ## [2.1.2][] - 2021-08-10
 
-* Added support for Django 3.2 LTS 
+* Added support for Django 3.2 LTS
 
 ## [2.1.1][] - 2020-03-16
 
-* correctly specify django versions in setup.py 
+* correctly specify django versions in setup.py
 * code formatting
 
 ## [2.1.0][] - 2020-03-16
@@ -25,12 +29,11 @@ to [Semantic Versioning](http://semver.org/).
 * Added support for Django 3.0 and 3.1
 * Pinned upper version for PyJWT to fix install issues
 
-
 ## [2.0.0][] - 2019-06-24
+
 * Added support for Django 2.2
 
 * Removed support for Django 2.0 and 1.X
-
 
 ## [1.3.0][] - 2017-03-22
 
