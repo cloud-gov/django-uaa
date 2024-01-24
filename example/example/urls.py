@@ -15,7 +15,8 @@ Including another URLconf
 """
 import django
 from django.shortcuts import render, redirect
-from django.conf.urls import url, include
+from django.conf.urls import include
+from django.urls import re_path
 from django.contrib import admin, auth
 
 from uaa_client.decorators import staff_login_required
@@ -38,8 +39,8 @@ if django.get_version().startswith("1.8."):
     _kwargs["namespace"] = "uaa_client"
 
 urlpatterns = [
-    url(r"^$", index),
-    url(r"^admin/", admin.site.urls),
-    url(r"^auth/", include("uaa_client.urls", **_kwargs)),
-    url(r"^logout/", logout, name="logout"),
+    re_path(r"^$", index),
+    re_path(r"^admin/", admin.site.urls),
+    re_path(r"^auth/", include("uaa_client.urls", **_kwargs)),
+    re_path(r"^logout/", logout, name="logout"),
 ]

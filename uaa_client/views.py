@@ -5,7 +5,7 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.shortcuts import resolve_url, render
 from django.utils.crypto import get_random_string
-from django.utils.http import is_safe_url
+from django.utils.http import url_has_allowed_host_and_scheme
 
 from .compat import reverse
 from .authentication import get_auth_url
@@ -64,7 +64,7 @@ def oauth2_callback(request):
     next_url = request.session["oauth2_next_url"]
     del request.session["oauth2_next_url"]
 
-    if not is_safe_url(url=next_url, allowed_hosts=[request.get_host()]):
+    if not url_has_allowed_host_and_scheme(url=next_url, allowed_hosts=[request.get_host()]):
         next_url = resolve_url(request.build_absolute_uri(settings.LOGIN_REDIRECT_URL))
 
     return HttpResponseRedirect(next_url)
