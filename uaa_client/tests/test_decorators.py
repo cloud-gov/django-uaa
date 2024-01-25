@@ -3,7 +3,7 @@ from unittest.mock import patch
 from django.test import TestCase, override_settings
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from django.conf.urls import url
+from django.urls import re_path
 
 from ..decorators import staff_login_required
 
@@ -19,8 +19,8 @@ def staff_only_view_with_custom_login_url(request):
 
 
 urlpatterns = [
-    url(r"^staff_only_view/$", staff_only_view),
-    url(
+    re_path(r"^staff_only_view/$", staff_only_view),
+    re_path(
         r"^staff_only_view_with_custom_login_url/$",
         staff_only_view_with_custom_login_url,
     ),
