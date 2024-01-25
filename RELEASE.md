@@ -7,10 +7,23 @@ Here's how to issue a new release:
 1. Move the "unreleased" section to a new version entry in
    `CHANGELOG.md`.
 
-1. [Follow the development instructions](https://cg-django-uaa.readthedocs.io/en/main/developing.html) to:
+1. From the project root, install dependencies and run automated tests:
 
-   - [Run the unit tests](https://cg-django-uaa.readthedocs.io/en/main/developing.html#running-tests)
-   - [Run the example app test](https://cg-django-uaa.readthedocs.io/en/main/developing.html#using-the-example-app)
+   ```shell
+   tox
+   ```
+
+1. Run the following to ensure that everything builds and
+   installs OK in an isolated environment:
+
+   ```shell
+   rm -rf dist build
+   python -m build --sdist
+   python test.py manualtest
+   ```
+
+   You should be able to visit <http://localhost:8000> and log in
+   as `foo@example.org` without any problems.
 
 1. Commit and push your changes with a commit message like
    "Bump version to v1.0.4."
