@@ -27,22 +27,10 @@ exclude = '''
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-envlist = py35-django22,py3{6,7,8,9,10}-django{40,41,42}
+envlist = py3{8,9,10,11,12,13}-django{40,41,42}
 isolated_build=true
 
-[testenv:py3{5,6,7}]
-deps =
-    -rrequirements-tests.txt
-    -rrequirements-dev.txt
-    django40: Django>=4.0,<4.1
-    django41: Django>=4.1,<4.2
-    django42: Django>=4.2,<4.3
-commands =
-    # don't run mypy on versions lower than 3.8 because there's a bug that was fixed in
-    # https://github.com/python/typeshed/pull/1142 but only fixes 3.8+ versions
-    # this also skips linting and coverage checks on earlier versions, but those should be the same
-    python -m uaa_client.runtests
-[testenv:py3{8,9,10}]
+[testenv:py3{8,9,10,11,12,13}]
 deps =
     -rrequirements-tests.txt
     -rrequirements-dev.txt
