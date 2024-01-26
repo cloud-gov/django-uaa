@@ -9,8 +9,10 @@ from ..middleware import UaaRefreshMiddleware, uaa_refresh_exempt
 def noop():
     pass
 
+
 def get_response(request):
     return HttpResponse()
+
 
 class FakeUser:
     def __init__(self, is_authenticated):
@@ -26,9 +28,10 @@ class FakeRequest:
         self.user = FakeUser(is_authenticated)
         self.session = session or {}
 
+
 class MiddlewareTests(TestCase):
     def assertNoRefresh(self, request, view_func=noop, time=0):
-            
+
         mw = UaaRefreshMiddleware(get_response)
 
         with patch("time.time", return_value=time):

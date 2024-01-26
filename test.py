@@ -2,6 +2,7 @@
 This holds a couple handy commands that were in setup.py
 before we moved to static builds using setup.cfg
 """
+
 import os
 import sys
 import distutils.cmd

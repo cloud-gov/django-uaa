@@ -64,7 +64,9 @@ def oauth2_callback(request):
     next_url = request.session["oauth2_next_url"]
     del request.session["oauth2_next_url"]
 
-    if not url_has_allowed_host_and_scheme(url=next_url, allowed_hosts=[request.get_host()]):
+    if not url_has_allowed_host_and_scheme(
+        url=next_url, allowed_hosts=[request.get_host()]
+    ):
         next_url = resolve_url(request.build_absolute_uri(settings.LOGIN_REDIRECT_URL))
 
     return HttpResponseRedirect(next_url)
