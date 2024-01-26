@@ -25,6 +25,10 @@ RUN pip install cg-django-uaa-${version}.tar.gz && \
 
 COPY example /example
 
+# Remove existing database from local testing, if any,
+# otherwise superuser creation below will fail
+RUN rm /example/db.sqlite3
+
 WORKDIR /example
 
 RUN python manage.py migrate && \
