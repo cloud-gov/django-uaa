@@ -1,5 +1,6 @@
 from unittest.mock import patch
 from django.test import TestCase
+from django.http.response import HttpResponse
 
 from .. import middleware
 from ..middleware import UaaRefreshMiddleware, uaa_refresh_exempt
@@ -8,6 +9,8 @@ from ..middleware import UaaRefreshMiddleware, uaa_refresh_exempt
 def noop():
     pass
 
+def get_response(request):
+    return HttpResponse()
 
 class FakeUser:
     def __init__(self, is_authenticated):
@@ -23,10 +26,10 @@ class FakeRequest:
         self.user = FakeUser(is_authenticated)
         self.session = session or {}
 
-
 class MiddlewareTests(TestCase):
     def assertNoRefresh(self, request, view_func=noop, time=0):
-        mw = UaaRefreshMiddleware()
+            
+        mw = UaaRefreshMiddleware(get_response)
 
         with patch("time.time", return_value=time):
             with patch.object(mw, "_refresh") as m:
@@ -55,7 +58,7 @@ class MiddlewareTests(TestCase):
         refresh.return_value = None
         req = FakeRequest(session={"uaa_expiry": 150})
         with patch("time.time", return_value=200):
-            UaaRefreshMiddleware().process_view(req, noop, [], {})
+            UaaRefreshMiddleware(get_response).process_view(req, noop, [], {})
             logout.assert_called_once_with(req)
 
     @patch.object(middleware, "logout")
@@ -64,5 +67,5 @@ class MiddlewareTests(TestCase):
         refresh.return_value = "I am a fake access token"
         req = FakeRequest(session={"uaa_expiry": 150})
         with patch("time.time", return_value=200):
-            UaaRefreshMiddleware().process_view(req, noop, [], {})
+            UaaRefreshMiddleware(get_response).process_view(req, noop, [], {})
             logout.assert_not_called()
