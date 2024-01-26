@@ -7,7 +7,7 @@ to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
-## [2.1.5][] - 2024-01-25
+## [2.1.5][] - 2024-01-26
 
 * Update Django dependency to `>=4.0,<5.0`
 
