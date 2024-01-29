@@ -30,7 +30,7 @@ jobs:
     - get: cg-django-uaa-repo
       trigger: true
     - set_pipeline: self
-      file: cg-django-uaa-repo-tag/ci/pipeline.yml
+      file: cg-django-uaa-repo/ci/pipeline.yml
 
 - name: create-release
   plan:
