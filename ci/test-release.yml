@@ -1,0 +1,12 @@
+---
+platform: linux
+
+inputs:
+- name: cg-django-uaa-repo-tag
+
+outputs:
+- name: cg-django-uaa-repo-tag
+
+run:
+  dir: cg-django-uaa-repo-tag
+  path: ci/test-release.sh
