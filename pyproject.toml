@@ -23,21 +23,3 @@ exclude = '''
   )/
 )
 '''
-
-[tool.tox]
-legacy_tox_ini = """
-[tox]
-envlist = py3{8,9,10,11,12}-django{40,41,42}
-isolated_build=true
-
-[testenv:py3{8,9,10,11,12}]
-deps =
-    -rrequirements-tests.txt
-    -rrequirements-dev.txt
-    django40: Django>=4.0,<4.1
-    django41: Django>=4.1,<4.2
-    django42: Django>=4.2,<4.3
-commands =
-    python -m uaa_client.runtests
-    python -m mypy uaa_client
-"""
