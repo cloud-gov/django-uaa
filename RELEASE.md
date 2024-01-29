@@ -58,5 +58,5 @@ Here's how to issue a new release:
 1. Run `python -m twine upload dist/*`.  The new release should now
    be visible on [pypi][].
 
-[GitHub releases page]: https://github.com/18F/cg-django-uaa/releases
+[GitHub releases page]: https://github.com/cloud-gov/cg-django-uaa/releases
 [pypi]: https://pypi.python.org/pypi/cg-django-uaa
