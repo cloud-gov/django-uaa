@@ -41,6 +41,9 @@ Here's how to issue a new release:
    `CHANGELOG.md` for this, as whatever you enter will
    show up on the [GitHub releases page][].
 
+1. After you push, the [CI pipeline](./ci/pipeline.yml) will automatically
+   create a [GitHub release][GitHub releases page] for the tag.
+
 1. If you haven't already done so, create a `~/.pypirc` file
    with the following content:
 
@@ -56,7 +59,7 @@ Here's how to issue a new release:
    ```
 
 1. Run `python -m twine upload dist/*`.  The new release should now
-   be visible on [pypi][].
+   be visible on [PyPI][].
 
 [GitHub releases page]: https://github.com/cloud-gov/cg-django-uaa/releases
-[pypi]: https://pypi.python.org/pypi/cg-django-uaa
+[PyPI]: https://pypi.python.org/pypi/cg-django-uaa
