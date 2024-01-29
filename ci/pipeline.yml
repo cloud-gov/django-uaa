@@ -7,22 +7,22 @@ jobs:
       - get: cg-django-uaa-pr
         trigger: true
       - get: general-task
-    - put: pull-request
+    - put: cg-django-uaa-pr
       params:
-        path: pull-request
+        path: cg-django-uaa-pr
         status: pending
     - task: run-tests
       image: general-task
       file: cg-django-uaa-pr/ci/run-tests.yml
       on_failure:
-        put: pull-request
+        put: cg-django-uaa-pr
         params:
-          path: pull-request
+          path: cg-django-uaa-pr
           status: failure
       on_success:
-        put: pull-request
+        put: cg-django-uaa-pr
         params:
-          path: pull-request
+          path: cg-django-uaa-pr
           status: success
 
 - name: set-self
