@@ -22,7 +22,7 @@ development dependencies::
 
 Then install cg-django-uaa in development mode::
 
-    python -m pip install -e .
+    python -m pip install --editable .
 
 Using the example app
 ~~~~~~~~~~~~~~~~~~~~~
