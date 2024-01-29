@@ -1,1 +1,4 @@
 httmock>=1.2.5
+mypy>=0.501
+tox
+types-requests

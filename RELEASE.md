@@ -4,16 +4,16 @@ Here's how to issue a new release:
 
 1. Bump the version number in `uaa_client/__init__.py`.
 
-2. Move the "unreleased" section to a new version entry in
+1. Move the "unreleased" section to a new version entry in
    `CHANGELOG.md`.
 
-3. From the project root, install dependencies and run automated tests:
+1. From the project root, install dependencies and run automated tests:
 
    ```shell
    tox
    ```
 
-4. Run the following to ensure that everything builds and
+1. Run the following to ensure that everything builds and
    installs OK in an isolated environment:
 
    ```shell
@@ -25,10 +25,10 @@ Here's how to issue a new release:
    You should be able to visit <http://localhost:8000> and log in
    as `foo@example.org` without any problems.
 
-5. Commit and push your changes with a commit message like
+1. Commit and push your changes with a commit message like
    "Bump version to v1.0.4."
 
-6. Tag your version and push it to GitHub. For instance, if you're
+1. Tag your version and push it to GitHub. For instance, if you're
    releasing v1.0.4, do:
 
    ```shell
@@ -41,7 +41,7 @@ Here's how to issue a new release:
    `CHANGELOG.md` for this, as whatever you enter will
    show up on the [GitHub releases page][].
 
-7. If you haven't already done so, create a `~/.pypirc` file
+1. If you haven't already done so, create a `~/.pypirc` file
    with the following content:
 
    ```conf
@@ -55,7 +55,7 @@ Here's how to issue a new release:
    password: <your password>
    ```
 
-8. Run `python -m twine upload dist/*`.  The new release should now
+1. Run `python -m twine upload dist/*`.  The new release should now
    be visible on [pypi][].
 
 [GitHub releases page]: https://github.com/18F/cg-django-uaa/releases

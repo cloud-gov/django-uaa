@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [tool.black]
 line-length = 88
-target-version = ['py37']
+target-version = ['py312']
 include = '\.pyi?$'
 exclude = '''
 
@@ -23,35 +23,3 @@ exclude = '''
   )/
 )
 '''
-
-[tool.tox]
-legacy_tox_ini = """
-[tox]
-envlist = py35-django22,py3{6,7,8,9,10}-django{22,30,31,32}
-isolated_build=true
-
-[testenv:py3{5,6,7}]
-deps =
-    -rrequirements-tests.txt
-    -rrequirements-dev.txt
-    django22: Django>=2.2,<2.3
-    django30: Django>=3.0,<3.1
-    django31: Django>=3.1,<3.2
-    django32: Django>=3.2,<3.3
-commands =
-    # don't run mypy on versions lower than 3.8 because there's a bug that was fixed in
-    # https://github.com/python/typeshed/pull/1142 but only fixes 3.8+ versions
-    # this also skips linting and coverage checks on earlier versions, but those should be the same
-    python -m uaa_client.runtests
-[testenv:py3{8,9,10}]
-deps =
-    -rrequirements-tests.txt
-    -rrequirements-dev.txt
-    django22: Django>=2.2,<2.3
-    django30: Django>=3.0,<3.1
-    django31: Django>=3.1,<3.2
-    django32: Django>=3.2,<3.3
-commands =
-    python -m uaa_client.runtests
-    python -m mypy uaa_client
-"""
