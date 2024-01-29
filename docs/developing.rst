@@ -54,9 +54,9 @@ with::
 
     tox
 
-or against specific versions, for instance python 3.8 with django 3.1::
+or against specific versions, for instance Python 3.10 with Django 4.2::
 
-    tox -e py38-django31
+    tox -e py310-django42
 
 
 Formatting code
