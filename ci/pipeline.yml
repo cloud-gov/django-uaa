@@ -27,23 +27,26 @@ jobs:
 
 - name: set-self
   plan:
-    - get: cg-django-uaa-repo-tag
+    - get: cg-django-uaa-repo
       trigger: true
     - set_pipeline: self
-      file: cg-django-uaa-repo-tag/ci/pipeline.yml
+      file: cg-django-uaa-repo/ci/pipeline.yml
 
 - name: create-release
   plan:
     - get: cg-django-uaa-repo-tag
-      passed: [set-self]
       trigger: true
     - task: prepare-release
       file: cg-django-uaa-repo-tag/ci/prepare-release.yml
-    # - put: cg-django-uaa-release
-    #   params:
-    #     name: cg-django-uaa-repo-tag/tag
-    #     tag: cg-django-uaa-repo-tag/tag
-    #     generate_release_notes: true
+    - task: test-release
+      file: cg-django-uaa-repo-tag/ci/test-release.yml
+    - put: cg-django-uaa-release
+      params:
+        name: cg-django-uaa-repo-tag/tag
+        tag: cg-django-uaa-repo-tag/tag
+        generate_release_notes: true
+        globs:
+          - cg-django-uaa-repo-tag/dist/cg-django-uaa*
   on_failure:
     put: slack
     params:
@@ -73,14 +76,21 @@ resources:
     disable_forks: true
 
 # this resource is this repo
+- name: cg-django-uaa-repo
+  type: git
+  source:
+    uri: https://github.com/cloud-gov/cg-django-uaa.git
+    branch: main
+    commit_verification_keys: ((cloud-gov-pgp-keys))
+
+# this resource is this repo
 # NOTE: we only execute on tag changes not commits, see tag_regex
 - name: cg-django-uaa-repo-tag
   type: git
   source:
     uri: https://github.com/cloud-gov/cg-django-uaa.git
-    branch: update-django-4
     # only run on new tags matching pattern like: v0.1.5
-    # tag_regex: '^v([0-9]+\.){0,2}(\*|[0-9]+)$'
+    tag_regex: '^v([0-9]+\.){0,2}(\*|[0-9]+)$'
     commit_verification_keys: ((cloud-gov-pgp-keys))
 
 # This resource for posting to slack
@@ -90,12 +100,12 @@ resources:
     url: ((slack-webhook-url))
 
 # Resource for creating a new release
-# - name: cg-django-uaa-release
-#   type: github-release
-#   source:
-#     owner: cloud-gov
-#     repository: cg-django-uaa
-#     access_token: ((cg-ci-bot-ghtoken))
+- name: cg-django-uaa-release
+  type: github-release
+  source:
+    owner: cloud-gov
+    repository: cg-django-uaa
+    access_token: ((cg-ci-bot-ghtoken))
 
 - name: general-task
   type: registry-image
