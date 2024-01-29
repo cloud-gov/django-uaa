@@ -5,8 +5,5 @@ source venv/bin/activate
 
 python -m pip install -r requirements-tests.txt
 
-# install package in development mode
-# python -m pip install --editable .
-
-# run tests
-tox
+# run tests in development mode
+tox --develop
