@@ -27,7 +27,7 @@ jobs:
 
 - name: set-self
   plan:
-    - get: cg-django-uaa-repo-tag
+    - get: cg-django-uaa-repo
       trigger: true
     - set_pipeline: self
       file: cg-django-uaa-repo-tag/ci/pipeline.yml
@@ -35,7 +35,6 @@ jobs:
 - name: create-release
   plan:
     - get: cg-django-uaa-repo-tag
-      passed: [set-self]
       trigger: true
     - task: prepare-release
       file: cg-django-uaa-repo-tag/ci/prepare-release.yml
@@ -75,6 +74,14 @@ resources:
     repository: cloud-gov/cg-django-uaa
     access_token: ((status-access-token))
     disable_forks: true
+
+# this resource is this repo
+- name: cg-django-uaa-repo
+  type: git
+  source:
+    uri: https://github.com/cloud-gov/cg-django-uaa.git
+    branch: main
+    commit_verification_keys: ((cloud-gov-pgp-keys))
 
 # this resource is this repo
 # NOTE: we only execute on tag changes not commits, see tag_regex
