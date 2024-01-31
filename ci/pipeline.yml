@@ -34,11 +34,15 @@ jobs:
 
 - name: create-release
   plan:
-    - get: cg-django-uaa-repo-tag
-      trigger: true
+    - in_parallel:
+        - get: cg-django-uaa-repo-tag
+          trigger: true
+        - get: general-task
     - task: prepare-release
+      image: general-task
       file: cg-django-uaa-repo-tag/ci/prepare-release.yml
     - task: test-release
+      image: general-task
       file: cg-django-uaa-repo-tag/ci/test-release.yml
     - put: cg-django-uaa-release
       params:

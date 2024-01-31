@@ -19,10 +19,13 @@
 #
 import os
 import sys
+import datetime
 
 sys.path.insert(0, os.path.abspath(os.path.join("..", "example")))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "example.settings")
 
+today = datetime.date.today()
+year = today.year
 
 import django
 
@@ -50,7 +53,8 @@ master_doc = "index"
 
 # General information about the project.
 project = "cg-django-uaa"
-copyright = "2021, cloud.gov"
+
+copyright = f'{year}, cloud.gov'
 author = "cloud.gov"
 
 # The version info for the project you're documenting, acts as replacement for
@@ -91,16 +95,11 @@ todo_include_todos = False
 
 # -- Options for HTML output ----------------------------------------------
 
-# https://github.com/snide/sphinx_rtd_theme#using-this-theme-locally-then-building-on-read-the-docs
+# https://github.com/readthedocs/sphinx_rtd_theme?tab=readme-ov-file#installation
+import sphinx_rtd_theme
 
-# on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org
-on_rtd = os.environ.get("READTHEDOCS", None) == "True"
-
-if not on_rtd:  # only import and set the theme if we're building docs locally
-    import sphinx_rtd_theme
-
-    html_theme = "sphinx_rtd_theme"
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+html_theme = "sphinx_rtd_theme"
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # otherwise, readthedocs.org uses their theme by default, so no need to specify it
 

@@ -60,12 +60,12 @@ Here's how to issue a new release:
    ```conf
    [distutils]
    index-servers =
-       pypi
+      pypi
+      cg-django-uaa
 
    [pypi]
-   repository: https://www.python.org/pypi
-   username: 18f
-   password: <your password>
+   username = __token__
+   password = <your API token>
    ```
 
 1. Run `python -m twine upload dist/*`.  The new release should now
