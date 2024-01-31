@@ -23,12 +23,6 @@ If you have any questions or want to read more, check out the
 We adhere to [PEP8][] for Python code
 formatting. Before committing, please use `black .` to autoformat your code.
 
-This project has a command to run all linters and unit tests:
-
-```sh
-python setup.py ultratest
-```
-
 For more information about developing on this project, see the
 [development guide](http://cg-django-uaa.readthedocs.io/en/latest/developing.html).
 
@@ -44,7 +38,7 @@ reading.
 [review]: https://github.com/18F/development-guide/tree/master/code_review
 [thoughts]: http://glen.nu/ramblings/oncodereview.php
 
-### Commit message style guide:
+### Commit message style guide
 
 - Write your commit message summary in the imperative: "Fix bug" and not
 "Fixed bug" or "Fixes bug."  This convention matches up with commit messages
@@ -59,7 +53,7 @@ GitHub's syntax, such as `Fixes #123`.
 
 Example:
 
-```
+```markdown
 Load seed using before(:suite) in RSpec config
 
 **Why**:
