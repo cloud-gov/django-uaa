@@ -17,8 +17,18 @@ Here's how to issue a new release:
    installs OK in an isolated environment:
 
    ```shell
+   # remove existing builds
    rm -rf dist build
+
+   # build source distribution
    python -m build --sdist
+
+   # install dependencies
+   python -m venv venv
+   source venv/bin/activate
+   python -m pip install .
+
+   # start up docker environment for manual tests
    python test.py manualtest
    ```
 
