@@ -19,10 +19,13 @@
 #
 import os
 import sys
+import datetime
 
 sys.path.insert(0, os.path.abspath(os.path.join("..", "example")))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "example.settings")
 
+today = datetime.date.today()
+year = today.year
 
 import django
 
@@ -50,7 +53,8 @@ master_doc = "index"
 
 # General information about the project.
 project = "cg-django-uaa"
-copyright = "2021, cloud.gov"
+
+copyright = f'{year}, cloud.gov'
 author = "cloud.gov"
 
 # The version info for the project you're documenting, acts as replacement for
