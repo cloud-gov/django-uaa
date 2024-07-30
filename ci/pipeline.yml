@@ -147,7 +147,7 @@ resource_types:
     repository: git-resource
     aws_region: us-gov-west-1
     tag: latest
-  
+
 - name: pull-request
   type: registry-image
   source:
@@ -160,4 +160,8 @@ resource_types:
 - name: github-release
   type: registry-image
   source:
-    repository: concourse/github-release-resource
+    aws_access_key_id: ((ecr_aws_key))
+    aws_secret_access_key: ((ecr_aws_secret))
+    repository: github-release-resource
+    aws_region: us-gov-west-1
+    tag: latest
