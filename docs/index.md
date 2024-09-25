@@ -9,4 +9,12 @@ Django. Features include:
     users are automatically logged out of the system soon after
     cloud.gov says they are unauthorized.
 
-To get started, see the [Quick start guide](./quickstart.md)
+To get started, see the [Quick start guide](./quickstart.md).
+
+## Table of contents
+
+- [Quick start guide](./quickstart.md)
+- [Authentication backends](./backends.md)
+- [Decorators](./decorators.md)
+- [Developing cg-django-uaa](./developing.md)
+- [Change log](./changelog.md)
