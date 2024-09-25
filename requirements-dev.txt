@@ -1,5 +1,2 @@
-sphinx
-sphinx-autobuild
-sphinx-rtd-theme
 recommonmark
 myst-parser
