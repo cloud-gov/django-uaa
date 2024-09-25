@@ -55,13 +55,4 @@ class ManualTestCommand(SimpleCommand):
         )
 
 
-class DevDocsCommand(SimpleCommand):
-    description = "Run development server for documentation"
-
-    def run(self):
-        subprocess.check_call(
-            ["sphinx-autobuild", ".", "_build_html", "--port", "8001"], cwd="docs"
-        )
-
-
-setup(cmdclass={"devdocs": DevDocsCommand, "manualtest": ManualTestCommand})
+setup(cmdclass={"manualtest": ManualTestCommand})
