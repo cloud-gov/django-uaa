@@ -1,6 +1,6 @@
 # Decorators
 
-***uaa_client.decorators.staff_login_required(function=None, redirect_field_name='next', login_url=None)***
+## ***uaa_client.decorators.staff_login_required(function=None, redirect_field_name='next', login_url=None)***
 
 Decorator to check that the user accessing the decorated view has their `is_staff` flag set to `True`.
 
