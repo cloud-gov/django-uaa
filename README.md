@@ -8,4 +8,4 @@ For documentation, please see the [`docs` folder](./docs/index.md).
 
 ## Developing
 
-See <https://cg-django-uaa.readthedocs.io/en/main/developing.html>
+See the [developing guide](./docs/developing.md).

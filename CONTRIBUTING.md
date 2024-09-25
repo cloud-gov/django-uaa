@@ -24,7 +24,7 @@ We adhere to [PEP8][] for Python code
 formatting. Before committing, please use `black .` to autoformat your code.
 
 For more information about developing on this project, see the
-[development guide](http://cg-django-uaa.readthedocs.io/en/latest/developing.html).
+[development guide](./docs/developing.md).
 
 [PEP8]: https://www.python.org/dev/peps/pep-0008/
 
