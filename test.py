@@ -25,7 +25,7 @@ class SimpleCommand(distutils.cmd.Command):
 class ManualTestCommand(SimpleCommand):
     description = "Run example app in a Docker container for manual testing."
 
-    SDIST_PATH = os.path.join("dist", "cg-django-uaa-{}.tar.gz".format(VERSION))
+    SDIST_PATH = os.path.join("dist", "cg_django_uaa-{}.tar.gz".format(VERSION))
 
     def run(self):
         if not os.path.exists(self.SDIST_PATH):
