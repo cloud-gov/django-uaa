@@ -48,7 +48,7 @@ class StaffLoginRequiredTests(TestCase):
     def test_redirects_to_login(self):
         res = self.client.get(self.url)
         self.assertEqual(302, res.status_code)
-        self.assertEquals(res["Location"], self.redirect_url)
+        self.assertEqual(res["Location"], self.redirect_url)
         self.logger.info.assert_called_once_with(
             "Unauthenticated user has attempted to access is_staff view"
         )
