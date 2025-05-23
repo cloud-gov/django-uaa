@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.10
 
 # This Dockerfile manually installs cg-django-uaa from a built
 # distribution and sets up the example app to run. It can be used
@@ -16,18 +16,18 @@ COPY requirements-tests.txt /
 
 RUN pip install -r /requirements-tests.txt
 
-COPY dist/cg-django-uaa-${version}.tar.gz /
+COPY dist/cg_django_uaa-${version}.tar.gz /
 
 WORKDIR /
 
-RUN pip install cg-django-uaa-${version}.tar.gz && \
+RUN pip install cg_django_uaa-${version}.tar.gz && \
   python -m uaa_client.runtests
 
 COPY example /example
 
 # Remove existing database from local testing, if any,
 # otherwise superuser creation below will fail
-RUN rm /example/db.sqlite3
+RUN rm /example/db.sqlite3 || true
 
 WORKDIR /example
 
