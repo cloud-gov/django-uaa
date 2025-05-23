@@ -50,7 +50,7 @@ jobs:
         tag: cg-django-uaa-repo-tag/tag
         generate_release_notes: true
         globs:
-          - cg-django-uaa-repo-tag/dist/cg-django-uaa*
+          - cg-django-uaa-repo-tag/dist/cg_django_uaa*
   on_failure:
     put: slack
     params:
