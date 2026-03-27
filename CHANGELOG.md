@@ -9,7 +9,7 @@ to [Semantic Versioning](http://semver.org/).
 
 ## [2.1.9][] - 2026-03-27
 
-* Update Django dependency to `>=5.0,<6`
+* Update Django dependency to `>5.1,<6`
 
 ## [2.1.8][] - 2025-05-23
 
