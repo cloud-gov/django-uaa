@@ -10,7 +10,6 @@ different settings and/or templates to run their tests.
 import os
 import sys
 
-
 # Make sure the app is (at least temporarily) on the import path.
 APP_DIR = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, APP_DIR)

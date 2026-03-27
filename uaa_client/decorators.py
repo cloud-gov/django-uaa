@@ -5,7 +5,6 @@ from django.core.exceptions import PermissionDenied
 
 from .compat import is_user_authenticated
 
-
 logger = logging.getLogger("uaa_client")
 
 

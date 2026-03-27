@@ -10,7 +10,6 @@ import httmock
 
 from .. import authentication as auth
 
-
 get_user_by_email = auth.UaaBackend.get_user_by_email
 
 
