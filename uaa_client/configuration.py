@@ -6,6 +6,7 @@ from django.http import HttpResponseNotFound
 
 from .authentication import UaaBackend
 
+
 # To determine whether we're running tests, we're going to remember the
 # earliest value of settings.DEBUG at the time that our app was initialized.
 # For more details on why this is important, see:

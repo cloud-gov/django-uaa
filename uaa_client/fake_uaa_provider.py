@@ -11,12 +11,13 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedire
 from .compat import reverse
 from .middleware import uaa_refresh_exempt
 
+
 TOKEN_EXPIRATION = timedelta(seconds=60)
 
 
 def expect(a, b):
     if a != b:
-        print("Warning: Expected %s to equal %s." % (a, b))
+        print("Warning: Expected %s to equal %s." % (a, b))  # pragma: no cover
 
 
 @require_GET

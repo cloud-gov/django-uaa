@@ -3,6 +3,7 @@ import subprocess
 from pathlib import Path
 from unittest import TestCase, SkipTest
 
+
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 EXAMPLE_APP_DIR = ROOT_DIR / "example"
 

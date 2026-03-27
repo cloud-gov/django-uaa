@@ -11,6 +11,7 @@ from django.http.request import HttpRequest
 
 from .compat import reverse
 
+
 logger = logging.getLogger("uaa_client")
 
 

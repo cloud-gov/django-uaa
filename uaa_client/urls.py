@@ -3,6 +3,7 @@ from django.urls import re_path
 from . import views, fake_uaa_provider
 from .configuration import validate_configuration, require_debug
 
+
 app_name = "uaa_client"
 
 urlpatterns = [
