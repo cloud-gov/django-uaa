@@ -66,7 +66,7 @@ resources:
   type: pull-request
   check_every: 1m
   source:
-    repository: cloud-gov/cg-django-uaa
+    repository: cloud-gov/django-uaa
     access_token: ((status-access-token))
     disable_forks: true
 
@@ -74,7 +74,7 @@ resources:
 - name: cg-django-uaa-repo
   type: git
   source:
-    uri: https://github.com/cloud-gov/cg-django-uaa.git
+    uri: https://github.com/cloud-gov/django-uaa.git
     branch: main
     commit_verification_keys: ((cloud-gov-pgp-keys))
 
@@ -83,7 +83,7 @@ resources:
 - name: cg-django-uaa-repo-tag
   type: git
   source:
-    uri: https://github.com/cloud-gov/cg-django-uaa.git
+    uri: https://github.com/cloud-gov/django-uaa.git
     # only run on new tags matching pattern like: v0.1.5
     tag_regex: '^v([0-9]+\.){0,2}(\*|[0-9]+)$'
     commit_verification_keys: ((cloud-gov-pgp-keys))
