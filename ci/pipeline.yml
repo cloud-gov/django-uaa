@@ -31,26 +31,6 @@ jobs:
       trigger: true
     - set_pipeline: self
       file: cg-django-uaa-repo/ci/pipeline.yml
-
-- name: create-release
-  plan:
-    - in_parallel:
-        - get: cg-django-uaa-repo-tag
-          trigger: true
-        - get: general-task
-    - task: prepare-release
-      image: general-task
-      file: cg-django-uaa-repo-tag/ci/prepare-release.yml
-    - task: test-release
-      image: general-task
-      file: cg-django-uaa-repo-tag/ci/test-release.yml
-    - put: cg-django-uaa-release
-      params:
-        name: cg-django-uaa-repo-tag/tag
-        tag: cg-django-uaa-repo-tag/tag
-        generate_release_notes: true
-        globs:
-          - cg-django-uaa-repo-tag/dist/cg_django_uaa*
   on_failure:
     put: slack
     params:
@@ -78,29 +58,10 @@ resources:
     branch: main
     commit_verification_keys: ((cloud-gov-pgp-keys))
 
-# this resource is this repo
-# NOTE: we only execute on tag changes not commits, see tag_regex
-- name: cg-django-uaa-repo-tag
-  type: git
-  source:
-    uri: https://github.com/cloud-gov/django-uaa.git
-    # only run on new tags matching pattern like: v0.1.5
-    tag_regex: '^v([0-9]+\.){0,2}(\*|[0-9]+)$'
-    commit_verification_keys: ((cloud-gov-pgp-keys))
-
-# This resource for posting to slack
 - name: slack
   type: slack-notification
   source:
     url: ((slack-webhook-url))
-
-# Resource for creating a new release
-- name: cg-django-uaa-release
-  type: github-release
-  source:
-    owner: cloud-gov
-    repository: cg-django-uaa
-    access_token: ((cg-ci-bot-ghtoken))
 
 - name: general-task
   type: registry-image
@@ -145,14 +106,5 @@ resource_types:
     aws_access_key_id: ((ecr_aws_key))
     aws_secret_access_key: ((ecr_aws_secret))
     repository: github-pr-resource
-    aws_region: us-gov-west-1
-    tag: latest
-
-- name: github-release
-  type: registry-image
-  source:
-    aws_access_key_id: ((ecr_aws_key))
-    aws_secret_access_key: ((ecr_aws_secret))
-    repository: github-release-resource
     aws_region: us-gov-west-1
     tag: latest
