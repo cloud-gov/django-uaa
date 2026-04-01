@@ -51,8 +51,7 @@ Here's how to issue a new release:
    `CHANGELOG.md` for this, as whatever you enter will
    show up on the [GitHub releases page][].
 
-1. After you push, the [CI pipeline](./ci/pipeline.yml) will automatically
-   create a [GitHub release][GitHub releases page] for the tag.
+1. [Create a release for the tag in GitHub](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release).
 
 1. If you haven't already done so, create a `~/.pypirc` file
    with the following content:
