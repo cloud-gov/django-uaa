@@ -7,9 +7,13 @@ to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [2.1.10][] - 2026-04-01
+
+* Update Django version constraint to `django>=5.2,<6`
+
 ## [2.1.9][] - 2026-03-27
 
-* Update Django dependency to `django>5,<=5.2`
+* Update Django version constraint to `django>5,<=5.2`
 
 ## [2.1.8][] - 2025-05-23
 
@@ -102,7 +106,8 @@ This is a hotfix release to fix a broken pypi build.
 
 Initial release.
 
-[unreleased]: https://github.com/cloud-gov/cg-django-uaa/compare/v2.1.6...HEAD
+[unreleased]: https://github.com/cloud-gov/cg-django-uaa/compare/v2.1.10...HEAD
+[2.1.10]: https://github.com/cloud-gov/cg-django-uaa/compare/v2.1.9...v2.1.10
 [2.1.9]: https://github.com/cloud-gov/cg-django-uaa/compare/v2.1.8...v2.1.9
 [2.1.8]: https://github.com/cloud-gov/cg-django-uaa/compare/v2.1.7...v2.1.8
 [2.1.7]: https://github.com/cloud-gov/cg-django-uaa/compare/v2.1.6...v2.1.7
